@@ -2,6 +2,8 @@ package com.springapp.mvc.configuration.application;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
+
 /**
  * Created by Anton on 06.03.2016.
  */
@@ -22,16 +24,9 @@ public class initialization  extends AbstractAnnotationConfigDispatcherServletIn
     }
 
 
-   /* @Override
-    public void onStartup(ServletContext container) throws ServletException {
-        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(AppConfig.class);
-        ctx.setServletContext(container);
-
-        ServletRegistration.Dynamic servlet = container.addServlet(
-                "dispatcher", new DispatcherServlet(ctx));
-
-        servlet.setLoadOnStartup(1);
-        servlet.addMapping("/");
-    }*/
+    @Override
+    protected Filter[] getServletFilters() {
+        Filter [] singleton = {new CORSFilter()};
+        return singleton;
+    }
 }

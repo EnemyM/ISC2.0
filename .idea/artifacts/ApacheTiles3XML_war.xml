@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="ApacheTiles3XML:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="ApacheTiles3XML.war">
-      <element id="artifact" artifact-name="ApacheTiles3XML:war exploded" />
-    </root>
-  </artifact>
-</component>

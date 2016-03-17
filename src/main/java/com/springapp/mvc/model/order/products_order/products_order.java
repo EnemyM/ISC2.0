@@ -21,6 +21,10 @@ public class products_order {
     @Column(name = "amount_product")
     private String amount_product;
 
+    @NotEmpty
+    @Column(name = "price_amount")
+    private  String price_amount;
+
     @ManyToOne
     @JoinColumn(name = "id_order")
     private order order;
@@ -61,12 +65,21 @@ public class products_order {
         this.product = product;
     }
 
+    public String getPrice_amount() {
+        return price_amount;
+    }
+
+    public void setPrice_amount(String price_amount) {
+        this.price_amount = price_amount;
+    }
+
     @Override
     public String toString() {
         return "products_order{" +
                 "id_products_order=" + id_products_order +
                 ", amount_product='" + amount_product + '\'' +
-                ", orders=" + order +
+                ", price_amount='" + price_amount + '\'' +
+                ", order=" + order +
                 ", product=" + product +
                 '}';
     }

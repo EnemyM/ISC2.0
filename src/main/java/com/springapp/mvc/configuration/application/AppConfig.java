@@ -19,6 +19,16 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 @ComponentScan(basePackages = "com.springapp.mvc")
 public class AppConfig extends WebMvcConfigurerAdapter{
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry){
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+    }
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer matcher) {
+        matcher.setUseRegisteredSuffixPatternMatch(true);
+    }
+
     @Bean
     public UrlBasedViewResolver viewResolver(){
         UrlBasedViewResolver configurer = new UrlBasedViewResolver();
@@ -33,25 +43,17 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         return configurer;
     }
 
-   /* @Override
+    /*@Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
 
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/pages/");
+        viewResolver.setPrefix("/WEB-INF/pages/registration/");
         viewResolver.setSuffix(".jsp");
         registry.viewResolver(viewResolver);
     }*/
     /* Configuration resource like css*/
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-    }
 
-    @Override
-    public void configurePathMatch(PathMatchConfigurer matcher) {
-        matcher.setUseRegisteredSuffixPatternMatch(true);
-    }
 
 
 }

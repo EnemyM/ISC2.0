@@ -11,6 +11,7 @@
         <spring.version>4.1.1.RELEASE</spring.version>
         <hibernate.version>4.3.10.Final</hibernate.version>
         <mysql.connector.version>5.1.31</mysql.connector.version>
+        <jackson.version>2.5.3</jackson.version>
     </properties>
 
     <dependencies>
@@ -66,6 +67,7 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -147,17 +149,15 @@
             <artifactId>angularjs</artifactId>
             <version>1.4.4</version>
         </dependency>
-
     </dependencies>
-
     <build>
         <finalName>ApacheTiles3XML</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>

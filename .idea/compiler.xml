@@ -24,9 +24,16 @@
         <processorPath useClasspath="true" />
         <module name="ApacheTiles3XML" />
       </profile>
+      <profile default="false" name="Annotation profile for ISC2.0" enabled="true">
+        <sourceOutputDir name="target\generated-sources\annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="ISC2.0" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ApacheTiles3XML" target="1.6" />
+      <module name="ApacheTiles3XML" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
