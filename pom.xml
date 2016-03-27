@@ -11,7 +11,7 @@
         <spring.version>4.1.1.RELEASE</spring.version>
         <hibernate.version>4.3.10.Final</hibernate.version>
         <mysql.connector.version>5.1.31</mysql.connector.version>
-        <jackson.version>2.5.3</jackson.version>
+        <jackson.version>1.9.10</jackson.version>
     </properties>
 
     <dependencies>
@@ -149,12 +149,24 @@
             <artifactId>angularjs</artifactId>
             <version>1.4.4</version>
         </dependency>
+        <!-- Jackson JSON Mapper -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>ApacheTiles3XML</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

@@ -1,7 +1,7 @@
 package com.springapp.mvc.services.order.product;
 
 import com.springapp.mvc.dao.oder.product_order.ProductsOrderDAO;
-import com.springapp.mvc.model.order.products_order.products_order;
+import com.springapp.mvc.model.order.products_order.product_order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,17 +20,17 @@ public class ProductsOrderServiceImpl implements ProductsOrderService{
 
 
     @Override
-    public products_order findById(int id_order) {
+    public product_order findById(int id_order) {
         return productsOrderDAO.findById(id_order);
     }
 
     @Override
-    public List<products_order> findAllProducts() {
+    public List<product_order> findAllProducts() {
         return productsOrderDAO.findAll();
     }
 
     @Override
-    public void save(products_order products_order) {
+    public void save(product_order products_order) {
         productsOrderDAO.save(products_order);
     }
 

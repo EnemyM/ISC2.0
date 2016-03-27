@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService{
             entity.setPlace_deliveries(order.getPlace_deliveries());
             entity.setPrice_order(order.getPrice_order());
             entity.setTime_delivery(order.getTime_delivery());
-            entity.setProducts_orders(order.getProducts_orders());
+            entity.setProducts_order(order.getProducts_order());
         }
     }
 

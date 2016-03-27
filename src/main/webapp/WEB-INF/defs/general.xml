@@ -3,32 +3,27 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-    <definition name="common" template="/WEB-INF/pages/firstSuccessViews/classic.jsp">
-        <put-attribute name="menu" value="/WEB-INF/pages/firstSuccessViews/menu.jsp"/>
-        <put-attribute name="footer" value="/WEB-INF/pages/firstSuccessViews/footer.jsp" />
-    </definition>
-    <definition name="index" extends="common">
-        <put-attribute name="title" value="Tiles tutorial homepage" />
-        <put-attribute name="body" value="/WEB-INF/pages/registration/registrationPage.jsp" />
-        <!--<put-attribute name="body" value="/WEB-INF/pages/home.jsp" />-->
-    </definition>
-
-    <!-- Base template-->
-    <definition name="base" template="/WEB-INF/pages/baseViewTemplate/baseTemplate.jsp">
-        <put-attribute name="menu" value="/WEB-INF/pages/baseViewTemplate/menu.jsp"/>
+    <!-- Base template -->
+    <definition name="base" template="/WEB-INF/pages/baseViewTemplate/template/main/mainTemplate.jsp">
+        <put-attribute name="menu" value="/WEB-INF/pages/baseViewTemplate/template/main/menu.jsp"/>
         <put-attribute name="body" value=""/>
-        <put-attribute name="footer" value="/WEB-INF/pages/baseViewTemplate/footer.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/pages/baseViewTemplate/template/main/footer.jsp"/>
     </definition>
+    <!-- First page -->
     <definition name="firstPage" extends="base">
         <put-attribute name="title" value="Home"/>
         <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/header/header.jsp"/>
-        <put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/order.jsp"/>
-        <!--<put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/map.jsp"/>-->
+        <!--<put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/order.jsp"/>-->
+        <!--<put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/productsOrder.jsp"/>-->
+        <put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/productOrderJS.jsp"/>
+        <!--<put-attribute name="body" value="/WEB-INF/pages/registration/registrationPage.jsp"/>-->
     </definition>
+    <!-- Second page -->
     <definition name="secondPage" extends="base">
         <put-attribute name="title" value="Order"/>
         <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/header/header.jsp"/>
-        <put-attribute name="body" value="/WEB-INF/pages/firstSuccessViews/orderJS.jsp"/>
+        <!--<put-attribute name="body" value="/WEB-INF/pages/firstSuccessViews/orderJS.jsp"/>-->
+        <put-attribute name="body" value="/WEB-INF/pages/registration/registrationPage.jsp"/>
     </definition>
 
 </tiles-definitions>

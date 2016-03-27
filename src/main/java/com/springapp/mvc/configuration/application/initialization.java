@@ -2,8 +2,6 @@ package com.springapp.mvc.configuration.application;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.Filter;
-
 /**
  * Created by Anton on 06.03.2016.
  */
@@ -24,9 +22,9 @@ public class initialization  extends AbstractAnnotationConfigDispatcherServletIn
     }
 
 
-    @Override
+   /* @Override
     protected Filter[] getServletFilters() {
         Filter [] singleton = {new CORSFilter()};
         return singleton;
-    }
+    }*/
 }

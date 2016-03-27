@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by Anton on 17.03.2016.
  */
@@ -22,6 +24,11 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public product findProductByName(String name_product) {
         return productDAO.findByName(name_product);
+    }
+
+    @Override
+    public List<product> findAllProducts() {
+        return productDAO.findAllProducts();
     }
 
     @Override

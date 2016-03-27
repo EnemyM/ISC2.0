@@ -2,7 +2,7 @@ App.factory('OrderService',['$http', '$q', function($http,$q){
     return{
 
         create: function(order){
-            return $http.post('http://localhost:8080/order/', order)
+            return $http.post('http://localhost:8080/order/',order)
                 .then(
                 function(response){
                     return response.data;

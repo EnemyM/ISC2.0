@@ -42,7 +42,7 @@ public class product {
 
     @OneToMany(mappedBy = "product" ,cascade = CascadeType.ALL,
     orphanRemoval = true)
-    private Set<products_order> products_orders = new HashSet<products_order>();
+    private Set<product_order> products_orders = new HashSet<product_order>();
 
     public Integer getId_product() {
         return id_product;
@@ -92,11 +92,11 @@ public class product {
         this.product_type = product_type;
     }
 
-    public Set<products_order> getProducts_orders() {
+    public Set<product_order> getProducts_orders() {
         return products_orders;
     }
 
-    public void setProducts_orders(Set<products_order> products_orders) {
+    public void setProducts_orders(Set<product_order> products_orders) {
         this.products_orders = products_orders;
     }
 

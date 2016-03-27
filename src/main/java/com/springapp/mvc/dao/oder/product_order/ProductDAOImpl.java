@@ -41,10 +41,11 @@ public class ProductDAOImpl extends AbstractDao<Integer,product> implements Prod
         delete(product);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<product> findAllProducts() {
-        Criteria criteria = createEntityCriteria();
-        criteria.addOrder(Order.asc("product_name"));
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("product_name"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return (List<product>)criteria.list();
     }
 }

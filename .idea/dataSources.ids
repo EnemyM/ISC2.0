@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - isc@localhost" uuid="2cb613c3-657f-4fb9-8d75-b21ef43c52c5">
+  <data-source name="MySQL - isc@localhost" uuid="1f6a41c0-bbe2-45cb-805a-97b400a2224d">
     <database-info product="MySQL" version="5.7.9-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
@@ -20,7 +20,7 @@
       <foreign-key name="fk_orders_order_status1" columns="id_order_status" ref-table="order_status" ref-schema="" ref-catalog="isc" ref-columns="id_order_status" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="fk_orders_has_place_delivery_orders1" table="orders_has_place_delivery" schema="" catalog="isc" columns="id_order,id_user,id_order_status"/>
       <exported-key name="fk_place_store_has_orders_orders1" table="place_store_has_orders" schema="" catalog="isc" columns="id_order"/>
-      <exported-key name="fk_orders_has_products_orders1" table="product_order" schema="" catalog="isc" columns="id_order"/>
+      <exported-key name="fk_product_order_order1" table="product_order" schema="" catalog="isc" columns="id_order,id_user,id_order_status"/>
       <index name="fk_orders_clients1_idx" unique="false" columns="id_user"/>
       <index name="fk_orders_order_status1_idx" unique="false" columns="id_order_status"/>
     </table>
@@ -75,19 +75,23 @@
       <column name="id_product_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id_product,id_product_type"/>
       <foreign-key name="fk_products_product_type" columns="id_product_type" ref-table="product_type" ref-schema="" ref-catalog="isc" ref-columns="id_product_type" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="fk_orders_has_products_products1" table="product_order" schema="" catalog="isc" columns="id_product"/>
+      <exported-key name="fk_product_order_product1" table="product_order" schema="" catalog="isc" columns="id_product,id_product_type"/>
       <index name="fk_products_product_type_idx" unique="false" columns="id_product_type"/>
     </table>
     <table name="product_order" schema="" catalog="isc" type="TABLE">
-      <column name="id_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="id_product" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_product_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="amount_product" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="price_amount" sqlType="VARCHAR" precision="35" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id_order,id_product"/>
-      <foreign-key name="fk_orders_has_products_orders1" columns="id_order" ref-table="order" ref-schema="" ref-catalog="isc" ref-columns="id_order" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="fk_orders_has_products_products1" columns="id_product" ref-table="product" ref-schema="" ref-catalog="isc" ref-columns="id_product" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="fk_orders_has_products_orders1_idx" unique="false" columns="id_order"/>
-      <index name="fk_orders_has_products_products1_idx" unique="false" columns="id_product"/>
+      <column name="price_amount" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_order_status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_product" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_product_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_product_order,id_order,id_user,id_order_status,id_product,id_product_type"/>
+      <foreign-key name="fk_product_order_order1" columns="id_order,id_user,id_order_status" ref-table="order" ref-schema="" ref-catalog="isc" ref-columns="id_order,id_user,id_order_status" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_product_order_product1" columns="id_product,id_product_type" ref-table="product" ref-schema="" ref-catalog="isc" ref-columns="id_product,id_product_type" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_product_order_order1_idx" unique="false" columns="id_order,id_user,id_order_status"/>
+      <index name="fk_product_order_product1_idx" unique="false" columns="id_product,id_product_type"/>
     </table>
     <table name="product_type" schema="" catalog="isc" type="TABLE">
       <column name="id_product_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>

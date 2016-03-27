@@ -51,7 +51,7 @@
         <div class="panel-heading"><span class="lead">Registration form </span></div>
         <div class="formcontainer">
             <form ng-submit="ctrl.submit()" name="registerForm" class="form-horizontal">
-                <%--<input type="hidden" ng-model="ctrl.user.id_user" />--%>
+                <input type="hidden" ng-model="ctrl.user.id_user" />
 
                 <div class="row">
                     <div class="form-group col-md-12">
