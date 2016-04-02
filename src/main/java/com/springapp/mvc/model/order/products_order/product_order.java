@@ -23,8 +23,10 @@ public class product_order {
 
     @NotEmpty
     @Column(name = "price_amount")
-    private String price_amount;
+    private Double price_amount;
 
+    @Column(name = "product_name")
+    private String product_name;
     @ManyToOne
     @JoinColumn(name = "id_order")
     private order order;
@@ -65,12 +67,20 @@ public class product_order {
         this.product = product;
     }
 
-    public String getPrice_amount() {
+    public Double getPrice_amount() {
         return price_amount;
     }
 
-    public void setPrice_amount(String price_amount) {
+    public void setPrice_amount(Double price_amount) {
         this.price_amount = price_amount;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
     @Override
@@ -79,6 +89,7 @@ public class product_order {
                 "id_product_order=" + id_product_order +
                 ", amount_product='" + amount_product + '\'' +
                 ", price_amount='" + price_amount + '\'' +
+                ", product_name='" + product_name + '\'' +
                 ", order=" + order +
                 ", product=" + product +
                 '}';

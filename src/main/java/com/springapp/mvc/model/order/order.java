@@ -49,6 +49,10 @@ public class order {
     @JoinColumn(name = "id_order_status")
     private order_status order_status;
 
+    @ManyToOne
+    @JoinColumn(name = "id_transport")
+    private transport transport;
+
     @ManyToMany
     @JoinTable(name = "orders_has_place_delivery",
                 joinColumns = {@JoinColumn(name = "id_order")},
@@ -148,9 +152,28 @@ public class order {
         this.products_order = products_orders;
     }
 
-    public String toString(){
-        return "id order: " + id_order + ", date order: " + date_order + ", date delivery: " + date_delivery +
-                ", time delivery: " + time_delivery + ", id user: " + user.getId_user() +
-                ", id order status: " + order_status.getId_order_status();
+    public com.springapp.mvc.model.order.transport getTransport() {
+        return transport;
+    }
+
+    public void setTransport(com.springapp.mvc.model.order.transport transport) {
+        this.transport = transport;
+    }
+
+    @Override
+    public String toString() {
+        return "order{" +
+                "id_order=" + id_order +
+                ", date_order=" + date_order +
+                ", date_delivery=" + date_delivery +
+                ", time_delivery='" + time_delivery + '\'' +
+                ", price_order=" + price_order +
+                ", user=" + user +
+                ", order_status=" + order_status +
+                ", transport=" + transport +
+                ", place_deliveries=" + place_deliveries +
+                ", place_stores=" + place_stores +
+                ", products_order=" + products_order +
+                '}';
     }
 }

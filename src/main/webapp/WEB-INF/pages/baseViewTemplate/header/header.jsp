@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 <div class="hr-divider">
-  <h3 class="hr-divider-content hr-divider-heading">
-    ISC the best Information System of control
-  </h3>
+    <h3 class="hr-divider-content hr-divider-heading">
+      ISC the best Information System of control
+    </h3>
 </div>

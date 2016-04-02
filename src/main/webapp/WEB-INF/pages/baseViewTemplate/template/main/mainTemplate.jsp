@@ -15,45 +15,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
-  <%--<link href="<c:url value='/static/css/bootstrap.main.css' />" rel="stylesheet"/>--%>
-  <style>
-    body{
-      margin: 0;
-      padding: 0;
-    }
-    .header{
-      position: absolute;
-      width: 100%;
-      height: 50px;
-      padding-left: 250px;
-      /*box-sizing: border-box;*/
-      border: 1px solid black;
-      z-index: 3;
-    }
-    .sidebar-wrapper{
-      z-index: 4;
-      position: absolute;
-      overflow-y: hidden;
-      width: 250px;
-      height: 100%;
-      padding-top: 50px;
-      border: 1px solid black;
-    }
-    .content{
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      padding-top: 50px;
-      padding-left: 250px;
-    }
-    .container-fluid{
-      border: 1px solid black;
-    }
+  <link href="<c:url value='/static/css/mainTemplate/templateStyle.css' />" rel="stylesheet"/>
 
-    .header{
-
-    }
-  </style>
 </head>
 <body>
   <div>

@@ -15,7 +15,6 @@ import java.util.List;
 @Repository("productDAO")
 public class ProductDAOImpl extends AbstractDao<Integer,product> implements ProductDAO{
 
-
     @Override
     public product findByName(String name) {
         Criteria criteria = createEntityCriteria();

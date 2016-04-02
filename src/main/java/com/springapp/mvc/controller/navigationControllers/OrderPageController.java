@@ -2,6 +2,8 @@ package com.springapp.mvc.controller.navigationControllers;
 
 import com.springapp.mvc.model.order.products_order.product;
 import com.springapp.mvc.model.order.products_order.product_order;
+import com.springapp.mvc.model.order.transport;
+import com.springapp.mvc.services.order.TransportService;
 import com.springapp.mvc.services.order.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,9 @@ public class OrderPageController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    TransportService transportService;
+
     @RequestMapping(value = {"/home","/firstPage","/"})
     public String firstPage(Model product){
 
@@ -38,6 +43,7 @@ public class OrderPageController {
     @RequestMapping(value = {"/"}, method = RequestMethod.POST)
     public String addOrder(@ModelAttribute("product_order") product_order product_order,Model product){
 
+        System.out.println("Inside in the order controller");
         System.out.println(product_order.getAmount_product());
         products.add(product_order);
         product.addAttribute("products", products);
@@ -60,6 +66,10 @@ public class OrderPageController {
         return productService.findAllProducts();
     }
 
+    /* sent transport model */
+    /*@ModelAttribute("transports")*/
+    public List<transport> initTransport(){return transportService.findAllTransports();}
+
     /*@RequestMapping(value = "/helloWorld.web", method = RequestMethod.GET)
     public ModelAndView printWelcome(@ModelAttribute("user") Users user) {
 
@@ -68,7 +78,6 @@ public class OrderPageController {
         return mav;
 
     }*/
-
 
 /*
     @RequestMapping(value = {"/countAmount/"})

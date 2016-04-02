@@ -1,9 +1,11 @@
 'use strict';
 
-App.controller('ProductController',['$scope','ProductService',function($scope,ProductService){
+App.controller('ProductController',['$scope','ProductService','$http',function($scope,ProductService, $http){
     var self = this;
-    self.product_order = {amount_product:'',price_amount:'', product:''};
+
+    self.product_order = {id_product_order:null,amount_product:'',price_amount:'', product_name:''};
     self.products_order = [];
+    self.order = {id_order:'',date_delivery:'',time_delivery:''};
 
     self.fetchAllProducts = function(){
       ProductService.fetchAllProducts()
@@ -18,6 +20,7 @@ App.controller('ProductController',['$scope','ProductService',function($scope,Pr
     };
 
     self.createProduct = function(product_order){
+
       ProductService.createProduct(product_order)
           .then(
           self.fetchAllProducts,
@@ -27,12 +30,17 @@ App.controller('ProductController',['$scope','ProductService',function($scope,Pr
       );
     };
 
+
     self.fetchAllProducts();
 
     self.submit = function(){
 
         self.createProduct(self.product_order);
         self.reset();
+    };
+
+    $scope.create = function(){
+        $http.post('http://localhost:8080/order/', self.order);
     };
 
     self.reset = function(){

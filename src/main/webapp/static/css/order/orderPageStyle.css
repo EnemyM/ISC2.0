@@ -1,0 +1,9 @@
+.table{
+    height: 250px;
+}
+.orderMap, .productOrder, .orderInf, .orderTr {
+    /*width: 300px;*/
+    height: 300px;
+    /*margin: 2px 2px 2px 2px;*/
+    border: 0.5px solid darkmagenta;
+}

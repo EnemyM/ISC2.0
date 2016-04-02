@@ -23,6 +23,10 @@ public class user_phones {
     @JoinColumn(name = "id_user")
     private user user;
 
+    @ManyToOne
+    @JoinColumn(name = "id_phone_type")
+    private phone_type phone_type;
+
     public Integer getId_phone() {
         return id_phone;
     }
@@ -47,8 +51,21 @@ public class user_phones {
         this.user = user;
     }
 
-    public  String toString(){
-        return "id phone: " + id_phone + ", phone number: " + phone_number +
-                ", id user: " + user.getId_user();
+    public com.springapp.mvc.model.user.phone_type getPhone_type() {
+        return phone_type;
+    }
+
+    public void setPhone_type(com.springapp.mvc.model.user.phone_type phone_type) {
+        this.phone_type = phone_type;
+    }
+
+    @Override
+    public String toString() {
+        return "user_phones{" +
+                "id_phone=" + id_phone +
+                ", phone_number='" + phone_number + '\'' +
+                ", user=" + user +
+                ", phone_type=" + phone_type +
+                '}';
     }
 }
