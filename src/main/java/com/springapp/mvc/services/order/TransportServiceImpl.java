@@ -4,6 +4,7 @@ import com.springapp.mvc.dao.oder.TransportDAO;
 import com.springapp.mvc.model.order.transport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Anton on 28.03.2016.
  */
 @Service("transportService")
+@Transactional
 public class TransportServiceImpl implements TransportService{
 
     @Autowired

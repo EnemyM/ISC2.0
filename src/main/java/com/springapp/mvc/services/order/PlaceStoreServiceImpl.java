@@ -4,6 +4,7 @@ import com.springapp.mvc.dao.oder.PlaceStoreDAO;
 import com.springapp.mvc.model.order.place_store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Anton on 17.03.2016.
  */
 @Service("placeStoreService")
+@Transactional
 public class PlaceStoreServiceImpl implements PlaceStoreService{
 
     @Autowired

@@ -26,7 +26,7 @@ import java.util.List;
  *  server side rest controller getting request with data from the angularJS in the client side.
  */
 @RestController
-public class RestProduct {
+public class RestOrder {
 
     @Autowired
     ProductService productService;

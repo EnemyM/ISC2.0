@@ -16,6 +16,7 @@
       <column name="id_user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="id_order_status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="transport_id_transport" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name_transport" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_order,id_user,id_order_status,transport_id_transport"/>
       <foreign-key name="fk_order_transport1" columns="transport_id_transport" ref-table="transport" ref-schema="" ref-catalog="isc" ref-columns="id_transport" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_orders_clients1" columns="id_user" ref-table="user" ref-schema="" ref-catalog="isc" ref-columns="id_user" update-rule="3" delete-rule="3" deferrability="2"/>

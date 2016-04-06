@@ -41,6 +41,9 @@ public class order {
     @Column(name = "price_order")
     private Double price_order;
 
+    @Column(name = "name_transport")
+    private String name_transport;
+
     @ManyToOne
     @JoinColumn(name = "id_user")
     private user user;
@@ -168,6 +171,7 @@ public class order {
                 ", date_delivery=" + date_delivery +
                 ", time_delivery='" + time_delivery + '\'' +
                 ", price_order=" + price_order +
+                ", name_transport='" + name_transport + '\'' +
                 ", user=" + user +
                 ", order_status=" + order_status +
                 ", transport=" + transport +

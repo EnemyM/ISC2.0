@@ -66,23 +66,28 @@
             </div>
           </div>
       </div>
-    <div class="orderInf col-lg-4 col-md-5 col-sm-4 " <%--ng-controller="OrderController as ctr"--%>>
-      <form <%--ng-submit="ctr.submit()"--%> name="orderForm">
-        <div><span> Order </span></div>
+    <div class="orderInf col-lg-4 col-md-5 col-sm-4 ">
+      <div><span> Order </span></div>
+      <form name="orderForm">
         <input type="hidden" ng-model="id_order">
-        <label>Date delivery</label>
-        <input type="date" required="true" ng-model="ctr.order.date_delivery"><br>
-        <label>Time delivery</label>
-        <input type="time" required="true" ng-model="ctr.order.time_delivery"><br>
-        <label>Transport</label>
-        <select  required="true">
-          <option disabled="true">Choose the transport</option>
-          <c:forEach items="${transports}" var="transport">
-            <option>${transport.name_transport}</option>
-          </c:forEach>
-        </select>
+        <div>
+          <label>Date delivery</label><br>
+          <input type="date" required="true" ng-model="ctr.order.date_delivery">
+        </div><br>
+        <div>
+          <label>Time delivery</label><br>
+          <input type="time" required="true" ng-model="ctr.order.time_delivery">
+        </div><br>
+        <div>
+          <label>Transport</label><br>
+          <select ng-model="ctr.order.transport" required="true">
+            <option value="">Choose the transport</option>
+            <c:forEach items="${transports}" var="transport">
+              <option>${transport.name_transport}</option>
+            </c:forEach>
+          </select>
+        </div><br>
         <button ng-click="create()">Create</button>
-        <%--<input type="submit" value="Create">--%>
       </form>
     </div>
     <div class="orderTr col-lg-4 col-md-10 col-sm-4 "></div>
