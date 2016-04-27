@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Anton on 07.03.2016.
  */
 @Controller
-public class OrderPageController {
+public class FirstPageController {
 
 
     private static List<product_order> products = new ArrayList<product_order>();

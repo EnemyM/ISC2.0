@@ -20,13 +20,13 @@ public class transport {
     private String name_transport;
 
     @Column(name = "min_tonnage")
-    private Double min_tonnage;
+    private String min_tonnage;
 
     @Column(name = "max_tonnage")
-    private Double max_tonnage;
+    private String max_tonnage;
 
     @OneToMany(mappedBy = "transport", cascade = CascadeType.ALL,
-    orphanRemoval = true)
+            orphanRemoval = true)
     private Set<order> orders = new HashSet<order>();
 
     public Integer getId_transport() {
@@ -45,19 +45,19 @@ public class transport {
         this.name_transport = name_transport;
     }
 
-    public Double getMix_tonnage() {
+    public String getMin_tonnage() {
         return min_tonnage;
     }
 
-    public void setMix_tonnage(Double mix_tonnage) {
-        this.min_tonnage = mix_tonnage;
+    public void setMin_tonnage(String min_tonnage) {
+        this.min_tonnage = min_tonnage;
     }
 
-    public Double getMax_tonnage() {
+    public String getMax_tonnage() {
         return max_tonnage;
     }
 
-    public void setMax_tonnage(Double max_tonnage) {
+    public void setMax_tonnage(String max_tonnage) {
         this.max_tonnage = max_tonnage;
     }
 
@@ -74,7 +74,7 @@ public class transport {
         return "transport{" +
                 "id_transport=" + id_transport +
                 ", name_transport='" + name_transport + '\'' +
-                ", mix_tonnage='" + min_tonnage + '\'' +
+                ", min_tonnage='" + min_tonnage + '\'' +
                 ", max_tonnage='" + max_tonnage + '\'' +
                 ", orders=" + orders +
                 '}';

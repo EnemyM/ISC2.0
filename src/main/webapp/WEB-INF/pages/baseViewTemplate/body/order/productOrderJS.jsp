@@ -85,17 +85,17 @@
       <div><span><center>Route</center></span></div>
       <%--latitude spot--%>
       <div class="spot-latitude">
-       <div class="l-spot-lat"><label>Latitude</label></div>
+       <div class="l-spot-lat"><label><center>Latitude</center></label></div>
         <input type="text" required="true" ng-model="" size="">
       </div>
       <%--longitude spot--%>
       <div class="spot-longitude">
-        <div class="l-spot-lon"><label>Longitude</label></div>
+        <div class="l-spot-lon"><label><center>Longitude</center></label></div>
         <input type="text" required="true" ng-model="">
       </div>
       <%-- spot type --%>
       <div class="spot-type">
-        <div class="l-spot-type"><lable>Spottype</lable></div>
+        <div class="l-spot-type"><lable>Spot Type</lable></div>
         <select ng-model="" required="true">
           <option value="">Choose type </option>
           <c:forEach items="${spot_types}" var="spot_type">
@@ -105,8 +105,8 @@
       </div>
     </div>
     <%-- order --%>
-    <div class="orderTr col-lg-4 col-md-5 col-sm-4 ">
-      <div><span><center>Order</center></span></div>
+    <div class="orderInf col-lg-4 col-md-5 col-sm-4 ">
+      <div><span><center> Order</center></span></div>
       <form name="orderForm">
         <input type="hidden" ng-model="id_order">
         <div>
