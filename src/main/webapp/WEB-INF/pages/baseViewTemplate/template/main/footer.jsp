@@ -1,9 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Anton
-  Date: 07.03.2016
-  Time: 15:00
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<center>&copy; Mostipan Industries</center>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+<style>
+  .footer{
+    color: #ffffff;
+  }
+</style>
+<div class="">
+  <span class="footer glyphicons glyphicons-cardio"><center>&copy; Mostipan Industries</center></span>
+</div>
+

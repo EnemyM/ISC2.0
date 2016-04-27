@@ -31,12 +31,8 @@ public class OrderPageController {
     TransportService transportService;
 
     @RequestMapping(value = {"/home","/firstPage","/"})
-    public String firstPage(Model product){
+    public String firstPage(Model transports){
 
-        /*product_order product_order = new product_order();
-
-        product.addAttribute("product_order", product_order);
-        product.addAttribute("products", products);*/
         return "firstPage";
     }
 
@@ -60,32 +56,12 @@ public class OrderPageController {
         return str;
     }*/
 
-    /* sent product model */
+     /*sent product model */
     @ModelAttribute("products")
-    public List<product> initProducts(){
-        return productService.findAllProducts();
-    }
+    public List<product> initProducts(){return productService.findAllProducts();}
 
-    /* sent transport model */
-    /*@ModelAttribute("transports")*/
+     /*sent transport model */
+    @ModelAttribute("transports")
     public List<transport> initTransport(){return transportService.findAllTransports();}
-
-    /*@RequestMapping(value = "/helloWorld.web", method = RequestMethod.GET)
-    public ModelAndView printWelcome(@ModelAttribute("user") Users user) {
-
-        ModelAndView mav = new ModelAndView("lazyRowLoad");
-        mav.addObject("message", "Hello World!!!");
-        return mav;
-
-    }*/
-
-/*
-    @RequestMapping(value = {"/countAmount/"})
-    public ModelAndView countAmount(@RequestBody order order){
-        ModelAndView modelAndView = new ModelAndView();
-
-            modelAndView.addObject("amount", );
-        return modelAndView;
-    }*/
 
 }

@@ -26,7 +26,7 @@ import java.util.List;
  *  server side rest controller getting request with data from the angularJS in the client side.
  */
 @RestController
-public class RestProduct {
+public class RestOrder {
 
     @Autowired
     ProductService productService;
@@ -35,6 +35,7 @@ public class RestProduct {
     OrderService orderService;
 
     private static List<product_order> productsOrder = new ArrayList<product_order>();
+
 
 
     @RequestMapping(value = {"/product/"}, method = RequestMethod.GET)
@@ -65,6 +66,7 @@ public class RestProduct {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
     @RequestMapping(value = {"/order/"}, method = RequestMethod.POST)

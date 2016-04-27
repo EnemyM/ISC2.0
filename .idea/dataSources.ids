@@ -16,16 +16,47 @@
       <column name="id_user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="id_order_status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="transport_id_transport" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name_transport" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_order,id_user,id_order_status,transport_id_transport"/>
       <foreign-key name="fk_order_transport1" columns="transport_id_transport" ref-table="transport" ref-schema="" ref-catalog="isc" ref-columns="id_transport" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_orders_clients1" columns="id_user" ref-table="user" ref-schema="" ref-catalog="isc" ref-columns="id_user" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_orders_order_status1" columns="id_order_status" ref-table="order_status" ref-schema="" ref-catalog="isc" ref-columns="id_order_status" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_order_route_has_order_order1" table="order_route_has_order" schema="" catalog="isc" columns="order_id_order,order_id_user,order_id_order_status,order_transport_id_transport"/>
       <exported-key name="fk_orders_has_place_delivery_orders1" table="orders_has_place_delivery" schema="" catalog="isc" columns="id_order,id_user,id_order_status"/>
       <exported-key name="fk_place_store_has_orders_orders1" table="place_store_has_orders" schema="" catalog="isc" columns="id_order"/>
       <exported-key name="fk_product_order_order1" table="product_order" schema="" catalog="isc" columns="id_order,id_user,id_order_status"/>
       <index name="fk_order_transport1_idx" unique="false" columns="transport_id_transport"/>
       <index name="fk_orders_clients1_idx" unique="false" columns="id_user"/>
       <index name="fk_orders_order_status1_idx" unique="false" columns="id_order_status"/>
+    </table>
+    <table name="order_route" schema="" catalog="isc" type="TABLE">
+      <column name="id_order_route" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="start_route" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="end_route" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_order_route"/>
+      <exported-key name="fk_order_route_has_order_order_route1" table="order_route_has_order" schema="" catalog="isc" columns="order_route_id_order_route"/>
+      <exported-key name="fk_order_route_spot_order_route1" table="order_route_spot" schema="" catalog="isc" columns="order_route_id_order_route"/>
+    </table>
+    <table name="order_route_has_order" schema="" catalog="isc" type="TABLE">
+      <column name="order_route_id_order_route" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="order_id_order" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="order_id_user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="order_id_order_status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="order_transport_id_transport" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="order_route_id_order_route,order_id_order,order_id_user,order_id_order_status,order_transport_id_transport"/>
+      <foreign-key name="fk_order_route_has_order_order1" columns="order_id_order,order_id_user,order_id_order_status,order_transport_id_transport" ref-table="order" ref-schema="" ref-catalog="isc" ref-columns="id_order,id_user,id_order_status,transport_id_transport" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_order_route_has_order_order_route1" columns="order_route_id_order_route" ref-table="order_route" ref-schema="" ref-catalog="isc" ref-columns="id_order_route" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_order_route_has_order_order1_idx" unique="false" columns="order_id_order,order_id_user,order_id_order_status,order_transport_id_transport"/>
+      <index name="fk_order_route_has_order_order_route1_idx" unique="false" columns="order_route_id_order_route"/>
+    </table>
+    <table name="order_route_spot" schema="" catalog="isc" type="TABLE">
+      <column name="id_order_route_spot" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name_spot" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="road_path" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="order_route_id_order_route" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_order_route_spot,order_route_id_order_route"/>
+      <foreign-key name="fk_order_route_spot_order_route1" columns="order_route_id_order_route" ref-table="order_route" ref-schema="" ref-catalog="isc" ref-columns="id_order_route" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_order_route_spot_order_route1_idx" unique="false" columns="order_route_id_order_route"/>
     </table>
     <table name="order_status" schema="" catalog="isc" type="TABLE">
       <column name="id_order_status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -43,6 +74,12 @@
       <foreign-key name="fk_orders_has_place_delivery_place_delivery1" columns="id_place_delivery" ref-table="place_delivery" ref-schema="" ref-catalog="isc" ref-columns="id_place_delivery" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="fk_orders_has_place_delivery_orders1_idx" unique="false" columns="id_order,id_user,id_order_status"/>
       <index name="fk_orders_has_place_delivery_place_delivery1_idx" unique="false" columns="id_place_delivery"/>
+    </table>
+    <table name="phone_type" schema="" catalog="isc" type="TABLE">
+      <column name="id_phone_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="type_phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_phone_type"/>
+      <exported-key name="fk_user_phones_phone_type1" table="user_phones" schema="" catalog="isc" columns="id_phone_type"/>
     </table>
     <table name="place_delivery" schema="" catalog="isc" type="TABLE">
       <column name="id_place_delivery" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -128,9 +165,12 @@
       <column name="id_phone" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="phone_number" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="id_user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id_phone,id_user"/>
+      <column name="id_phone_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_phone,id_user,id_phone_type"/>
       <foreign-key name="fk_clients_phones_clients1" columns="id_user" ref-table="user" ref-schema="" ref-catalog="isc" ref-columns="id_user" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_user_phones_phone_type1" columns="id_phone_type" ref-table="phone_type" ref-schema="" ref-catalog="isc" ref-columns="id_phone_type" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="fk_clients_phones_clients1_idx" unique="false" columns="id_user"/>
+      <index name="fk_user_phones_phone_type1_idx" unique="false" columns="id_phone_type"/>
     </table>
     <table name="user_roles" schema="" catalog="isc" type="TABLE">
       <column name="id_user_roles" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>

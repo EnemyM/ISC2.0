@@ -32,9 +32,8 @@ public class TransportDAOImpl extends AbstractDao<Integer,transport> implements 
     public List<transport> findAllTransports() {
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("name_transport"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        List<transport> list = (List<transport>) criteria.list();
 
-        return list;
+        return (List<transport>) criteria.list();
     }
 
     @Override

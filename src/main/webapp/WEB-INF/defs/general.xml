@@ -6,13 +6,14 @@
     <!-- Base template -->
     <definition name="base" template="/WEB-INF/pages/baseViewTemplate/template/main/mainTemplate.jsp">
         <put-attribute name="menu" value="/WEB-INF/pages/baseViewTemplate/template/main/menu.jsp"/>
+        <put-attribute name="menuList" value="/WEB-INF/pages/baseViewTemplate/template/main/menuList.jsp"/>
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/WEB-INF/pages/baseViewTemplate/template/main/footer.jsp"/>
     </definition>
     <!-- First page -->
     <definition name="firstPage" extends="base">
         <put-attribute name="title" value="Home"/>
-        <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/header/header.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/template/main/header.jsp"/>
         <!--<put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/order.jsp"/>-->
         <!--<put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/productsOrder.jsp"/>-->
         <put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/productOrderJS.jsp"/>
@@ -21,7 +22,7 @@
     <!-- Second page -->
     <definition name="secondPage" extends="base">
         <put-attribute name="title" value="Order"/>
-        <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/header/header.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/template/main/header.jsp"/>
         <!--<put-attribute name="body" value="/WEB-INF/pages/firstSuccessViews/orderJS.jsp"/>-->
         <put-attribute name="body" value="/WEB-INF/pages/registration/registrationPage.jsp"/>
     </definition>

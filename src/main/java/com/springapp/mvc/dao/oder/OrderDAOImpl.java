@@ -28,6 +28,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, order> implements OrderDA
         return (order) criteria.uniqueResult();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<order> findAllOrders() {
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("date_order"));

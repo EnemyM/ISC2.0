@@ -1,9 +1,63 @@
 .table{
-    height: 250px;
-}
-.orderMap, .productOrder, .orderInf, .orderTr {
-    /*width: 300px;*/
     height: 300px;
-    /*margin: 2px 2px 2px 2px;*/
+    overflow-y: scroll;
+}
+.product-order, .orderInf, .orderTr {
+    height: 300px;
     border: 0.5px solid darkmagenta;
 }
+.orderMap{
+    height:500px;
+}
+#map {
+    /*height: 200px;
+    width: 200px;*/
+}
+.product-order{
+    overflow-y: scroll;
+}
+/* header divider */
+.hr-divider{
+    position: relative;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.hr-divider:before{
+    position: absolute;
+    top: 50%;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #434857;
+}
+.hr-divider-content{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 100%;
+    color: inherit;
+}
+.hr-divider-heading{
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #6f7890;
+    vertical-align: middle;
+    background-color: #252830;
+}
+.hr-divider-content{
+    text-align:center;
+    color: #cfd2da;
+}
+/* lat-long for created spot*/
+.spot-latitude,.spot-longitude{
+    float: left;
+}
+
+

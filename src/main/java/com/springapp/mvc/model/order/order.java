@@ -41,6 +41,9 @@ public class order {
     @Column(name = "price_order")
     private Double price_order;
 
+    @Column(name = "name_transport")
+    private String name_transport;
+
     @ManyToOne
     @JoinColumn(name = "id_user")
     private user user;
@@ -53,24 +56,29 @@ public class order {
     @JoinColumn(name = "id_transport")
     private transport transport;
 
-    @ManyToMany
-    @JoinTable(name = "orders_has_place_delivery",
-                joinColumns = {@JoinColumn(name = "id_order")},
-                 inverseJoinColumns = {@JoinColumn(name = "id_place_delivery")} )
-    private Set<place_delivery> place_deliveries = new HashSet<place_delivery>();
-
-    @ManyToMany
-    @JoinTable(name = "place_store_has_orders",
-            joinColumns= {@JoinColumn(name = "id_order")},
-            inverseJoinColumns = {@JoinColumn(name = "id_place_store")})
-    private Set<place_store> place_stores = new HashSet<place_store>();
-
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    private Set<order_spot> order_spots = new HashSet<order_spot>();
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,
     orphanRemoval = true)
 //    private Set<product_order> products_order = new HashSet<product_order>();
-    private List<product_order> products_order = LazyList.decorate(new ArrayList<product_order>(), FactoryUtils.instantiateFactory(product_order.class));
+    private List<product_order> products_order = LazyList.decorate(new ArrayList<product_order>(),
+            FactoryUtils.instantiateFactory(product_order.class));
 
+    @ManyToMany
+    @JoinTable(name = "order_route_has_order",
+            joinColumns = {@JoinColumn(name = "order_id_order")},
+            inverseJoinColumns = {@JoinColumn(name = "order_route_id_order_route")})
+    private Set<order_route> order_routes = new HashSet<order_route>();
+
+    public String getName_transport() {
+        return name_transport;
+    }
+
+    public void setName_transport(String name_transport) {
+        this.name_transport = name_transport;
+    }
 
     public Integer getId_order() {
         return id_order;
@@ -128,22 +136,6 @@ public class order {
         this.order_status = order_status;
     }
 
-    public Set<place_delivery> getPlace_deliveries() {
-        return place_deliveries;
-    }
-
-    public void setPlace_deliveries(Set<place_delivery> place_deliveries) {
-        this.place_deliveries = place_deliveries;
-    }
-
-    public Set<place_store> getPlace_stores() {
-        return place_stores;
-    }
-
-    public void setPlace_stores(Set<place_store> place_stores) {
-        this.place_stores = place_stores;
-    }
-
     public List<product_order> getProducts_order() {
         return products_order;
     }
@@ -160,6 +152,23 @@ public class order {
         this.transport = transport;
     }
 
+    public Set<order_route> getOrder_routes() {
+        return order_routes;
+    }
+
+    public void setOrder_routes(Set<order_route> order_routes) {
+        this.order_routes = order_routes;
+    }
+
+
+    public Set<order_spot> getOrder_spots() {
+        return order_spots;
+    }
+
+    public void setOrder_spots(Set<order_spot> order_spots) {
+        this.order_spots = order_spots;
+    }
+
     @Override
     public String toString() {
         return "order{" +
@@ -168,12 +177,13 @@ public class order {
                 ", date_delivery=" + date_delivery +
                 ", time_delivery='" + time_delivery + '\'' +
                 ", price_order=" + price_order +
+                ", name_transport='" + name_transport + '\'' +
                 ", user=" + user +
                 ", order_status=" + order_status +
                 ", transport=" + transport +
-                ", place_deliveries=" + place_deliveries +
-                ", place_stores=" + place_stores +
+                ", order_spots=" + order_spots +
                 ", products_order=" + products_order +
+                ", order_routes=" + order_routes +
                 '}';
     }
 }

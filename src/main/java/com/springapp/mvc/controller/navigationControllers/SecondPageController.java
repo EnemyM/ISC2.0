@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by Anton on 07.03.2016.
  */
 @Controller
-public class StatPageController {
+public class SecondPageController {
     @RequestMapping(value = {"/secondPage"})
     public String getSecondPage(){
         return "secondPage";
