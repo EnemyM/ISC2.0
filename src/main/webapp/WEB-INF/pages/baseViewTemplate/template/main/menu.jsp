@@ -36,7 +36,7 @@
   <div class="icon-nav" id="icon-nav">
     <ul class="nav-i">
       <li>
-        <a href="<c:url value="/firstPage"/> " title="Order" class="frs-p">
+        <a href="<c:url value="/order"/> " title="Order" class="frs-p">
           <span class="glyphicon glyphicon-list-alt"></span>
         </a>
       </li>

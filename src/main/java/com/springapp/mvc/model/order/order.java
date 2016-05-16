@@ -6,12 +6,12 @@ package com.springapp.mvc.model.order;
 
 import com.springapp.mvc.model.order.products_order.product_order;
 import com.springapp.mvc.model.user.user;
-import org.apache.commons.collections.FactoryUtils;
-import org.apache.commons.collections.list.LazyList;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -62,9 +62,9 @@ public class order {
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,
     orphanRemoval = true)
-//    private Set<product_order> products_order = new HashSet<product_order>();
-    private List<product_order> products_order = LazyList.decorate(new ArrayList<product_order>(),
-            FactoryUtils.instantiateFactory(product_order.class));
+    private Set<product_order> products_order = new HashSet<product_order>();
+    /*private List<product_order> products_order = LazyList.decorate(new ArrayList<product_order>(),
+            FactoryUtils.instantiateFactory(product_order.class));*/
 
     @ManyToMany
     @JoinTable(name = "order_route_has_order",
@@ -136,11 +136,11 @@ public class order {
         this.order_status = order_status;
     }
 
-    public List<product_order> getProducts_order() {
+    public Set<product_order> getProducts_order() {
         return products_order;
     }
 
-    public void setProducts_order(List<product_order> products_orders) {
+    public void setProducts_order(Set<product_order> products_orders) {
         this.products_order = products_orders;
     }
 

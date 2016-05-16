@@ -22,7 +22,7 @@ public class order_spot {
     private String longitude;
 
     @Column(name = "spot_type")
-    private String spot_rype;
+    private String name_spot_type;
 
     @ManyToOne
     @JoinColumn(name = "id_spot_type")
@@ -64,6 +64,14 @@ public class order_spot {
         this.longitude = longitude;
     }
 
+    public String getName_spot_type() {
+        return name_spot_type;
+    }
+
+    public void setName_spot_type(String name_spot_type) {
+        this.name_spot_type = name_spot_type;
+    }
+
     public com.springapp.mvc.model.order.spot_type getSpot_type() {
         return spot_type;
     }
@@ -72,12 +80,12 @@ public class order_spot {
         this.spot_type = spot_type;
     }
 
-    public String getSpot_rype() {
-        return spot_rype;
+    public com.springapp.mvc.model.order.order getOrder() {
+        return order;
     }
 
-    public void setSpot_rype(String spot_rype) {
-        this.spot_rype = spot_rype;
+    public void setOrder(com.springapp.mvc.model.order.order order) {
+        this.order = order;
     }
 
     @Override
@@ -87,7 +95,7 @@ public class order_spot {
                 ", address='" + address + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
-                ", spot_rype='" + spot_rype + '\'' +
+                ", spot_rype='" + name_spot_type + '\'' +
                 ", spot_type=" + spot_type +
                 '}';
     }

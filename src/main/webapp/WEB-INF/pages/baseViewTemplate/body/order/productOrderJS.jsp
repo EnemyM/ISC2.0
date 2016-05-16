@@ -17,37 +17,45 @@
   <script src="<c:url value="/static/js/content/menu.js"/>" ></script>
 </head>
 <body ng-app="myApp" ng-controller="ProductController as ctr">
-<div class="container-fluid" id="wrapper" style="padding-left: 0px;padding-right: 0px;">
-  <div class="row" style="color: #cfd2da;">
+<div class="container-fluid" id="wrapper" style="padding-left: 0px;padding-right: 0px;color:#1ca8dd;">
+  <div class="row">
     <div class="hr-divider">
       <h3 class="hr-divider-content hr-divider-heading">Order</h3>
     </div>
+    <%-- search location --%>
+    <div class="search-spot-location">
+      <input type="text" id="search-spot-location-in" align="center" value="" placeholder="Search location" class="select-w-300 transparent-background custom-height-25"/>
+      <button type="button" id="search-spot-location-butt" class="transparent-background custom-height-25"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
     <div class="orderMap col-lg-12 col-md-10 col-sm-12" id="myMap"></div>
     <%-- product order --%>
-    <div class="product-order col-lg-4 col-md-5 col-sm-4">
+    <div class="product-order col-lg-4 col-md-5 col-sm-4 ">
       <%--Top add the product, amount --%>
         <div class="top-add-form">
-          <div><span><center>Products Order</center></span></div>
+          <div class="mar-top-10"><span><center>Products Order</center></span></div>
           <form ng-submit="ctr.submit()" name="productForm">
             <div>
               <input type="hidden" ng-model="ctr.product_order.id_product_order">
-              <div class="select-product">
+              <div class="select-product mar-top-10" align="center">
                 <div><label>Add Product</label></div>
                 <div>
-                  <select ng-model="ctr.product_order.product_name" required="true" width="20px">
+                  <select ng-model="ctr.product_order.product_name" required="true" class="select-w-300">
                     <option value="">Choose the product</option>
                     <c:forEach items="${products}" var="product">
                       <option>${product.product_name}</option>
                     </c:forEach>
                   </select>
                 </div>
-              </div><br>
-              <div class="amountProduct">
-               <div>
-                 <label>Amount product</label><br>
-                 <input type="text" ng-model="ctr.product_order.amount_product" placeholder="Amount" required="true" size="5px">
-                 <input type="submit" value="+" ng-disabled="productForm.$invalid">
-               </div>
+              </div>
+              <div class="amountProduct" align="center">
+                <div class="amount-product-in mar-top-10" >
+                  <label>Amount product</label><br>
+                  <input type="text" ng-model="ctr.product_order.amount_product" placeholder="Amount" required="true" size="5px"
+                         class="select-w-300">
+                </div>
+                <div class="button-add-product mar-top-10">
+                  <input type="submit" value="Add" ng-disabled="productForm.$invalid" class="select-w-300">
+                </div>
               </div><br>
             </div>
           </form>
@@ -81,52 +89,66 @@
           </div>
       </div>
     <%-- order route --%>
-    <div class="orderInf col-lg-4 col-md-5 col-sm-4">
-      <div><span><center>Route</center></span></div>
-      <%--latitude spot--%>
-      <div class="spot-latitude">
-       <div class="l-spot-lat"><label><center>Latitude</center></label></div>
-        <input type="text" required="true" ng-model="" size="">
-      </div>
-      <%--longitude spot--%>
-      <div class="spot-longitude">
-        <div class="l-spot-lon"><label><center>Longitude</center></label></div>
-        <input type="text" required="true" ng-model="">
-      </div>
-      <%-- spot type --%>
-      <div class="spot-type">
-        <div class="l-spot-type"><lable>Spot Type</lable></div>
-        <select ng-model="" required="true">
-          <option value="">Choose type </option>
-          <c:forEach items="${spot_types}" var="spot_type">
-            <option>${spot_type.type}</option>
-          </c:forEach>
-        </select>
-      </div>
+    <div class="order-route col-lg-4 col-md-5 col-sm-4">
+      <div class="mar-top-10"><span><center>Route</center></span></div>
+      <form ng-submit="ctr.addSpot()" name="orderRoute" >
+        <%-- address spot--%>
+        <div class="spot-address mar-top-10" align="center">
+          <div class="l-spot-ad"><label>Address</label></div>
+          <input type="text" ng-model="ctr.order_spot.address" id="spot-address-in" required="true" value=""  placeholder="Enter address spot" class="select-w-300">
+        </div>
+        <%--latitude spot--%>
+        <div class="spot-latitude mar-top-10">
+          <div class="l-spot-lat"><label>Latitude</label></div>
+          <input id="spot-lat-in" ng-model="ctr.order_spot.latitude" type="text" required="true"  value="" placeholder="Latitude spot">
+        </div>
+        <%--longitude spot--%>
+        <div class="spot-longitude mar-top-10" align="right">
+          <div class="l-spot-lon"><label>Longitude</label></div>
+          <input id="spot-lng-in" ng-model="ctr.order_spot.longitude" type="text" required="true"  value="" placeholder="Longitude spot">
+        </div>
+        <%-- spot type --%>
+        <div class="spot-type mar-top-10" align="center">
+          <div class="l-spot-type"><lable>Spot Type</lable></div>
+          <select required="true" ng-model="ctr.order_spot.name_spot_type" class="select-w-300" id="spot-type-s">
+            <option value="">Choose type</option>
+            <c:forEach items="${spot_types}" var="spot_type">
+              <option>${spot_type.type}</option>
+            </c:forEach>
+          </select>
+        </div>
+        <div class="button-spot mar-top-10" align="center">
+          <input id="save-spot-butt" type="submit" ng-click="ctrl.addSpot()" value="Save" class="select-w-300" ng-disabled="orderRoute.$invalid"/>
+          <input id="delete-spot-butt" type="button" ng-click="deleteSpot()" value="Delete" class="select-w-300">
+          <input id="delete-all-spot-butt" type="button" ng-click="deleteAllSpot()" value="Delete All" class="select-w-300">
+        </div>
+      </form>
     </div>
     <%-- order --%>
-    <div class="orderInf col-lg-4 col-md-5 col-sm-4 ">
-      <div><span><center> Order</center></span></div>
-      <form name="orderForm">
-        <input type="hidden" ng-model="id_order">
-        <div>
+    <div class="order-content col-lg-4 col-md-5 col-sm-4">
+      <div class="mar-top-10"><span><center>Order</center></span></div>
+      <form  ng-submit="ctr.create()" name="orderForm">
+        <input type="hidden" ng-model="ctr.order.id_order">
+        <div class="date-delivery mar-top-10">
           <label>Date delivery</label><br>
           <input type="date" required="true" ng-model="ctr.order.date_delivery">
-        </div><br>
-        <div>
+        </div>
+        <div class="time-delivery mar-top-10">
           <label>Time delivery</label><br>
           <input type="time" required="true" ng-model="ctr.order.time_delivery">
-        </div><br>
-        <div>
+        </div>
+        <div class="transport mar-top-10">
           <label>Transport</label><br>
-          <select ng-model="ctr.order.transport" required="true">
+          <select ng-model="ctr.order.transport" required="true" class="select-w-300">
             <option value="">Choose the transport</option>
             <c:forEach items="${transports}" var="transport">
               <option>${transport.name_transport}</option>
             </c:forEach>
           </select>
-        </div><br>
-        <button ng-click="create()">Create</button>
+        </div>
+        <div class="order-button mar-top-10">
+          <button type="submit" ng-click="ctr.create()" ng-disabled="orderForm.$invalid" class="select-w-300">Create</button>
+        </div>
       </form>
     </div>
   </div>

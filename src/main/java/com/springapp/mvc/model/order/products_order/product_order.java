@@ -27,6 +27,7 @@ public class product_order {
 
     @Column(name = "product_name")
     private String product_name;
+
     @ManyToOne
     @JoinColumn(name = "id_order")
     private order order;

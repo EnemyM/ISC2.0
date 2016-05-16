@@ -2,16 +2,14 @@
     height: 300px;
     overflow-y: scroll;
 }
-.product-order, .orderInf, .orderTr {
+/* some stuff for order page elements under the map*/
+.product-order, .order-content, .orderTr,.order-route {
     height: 300px;
     border: 0.5px solid darkmagenta;
 }
+/* order map */
 .orderMap{
     height:500px;
-}
-#map {
-    /*height: 200px;
-    width: 200px;*/
 }
 .product-order{
     overflow-y: scroll;
@@ -55,9 +53,46 @@
     text-align:center;
     color: #cfd2da;
 }
-/* lat-long for created spot*/
-.spot-latitude,.spot-longitude{
+/* add float to lat-long class input */
+.spot-latitude,/*.spot-longitude,.spot-type,*/.time-delivery,.date-delivery,.transport,.order-button{
     float: left;
+}
+/* add margin to longitude class from latitude class*/
+.spot-longitude{
+    margin-left: 15px;
+}
+/* general margin-top class to use*/
+.mar-top-10{
+    margin-top: 15px;
+}
+/* general width class for select with value 300px */
+.select-w-300{
+    width: 300px;
+    height: 25px;
+}
+.time-delivery{
+    margin-left: 15px;
+}
+.order-route{
+    overflow-y: scroll;
+}
+/* search location filed and button*/
+.search-spot-location{
+    display: block;
+    position: absolute;
+    top: 30px;
+    margin-left: 125px;
+    z-index: 5;
+    margin-top: 40px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease-out;
+}
+.transparent-background{
+    background: rgba(255, 255, 255, 0.5);
+}
+.custom-height-25{
+    height: 30px;
 }
 
 

@@ -6,6 +6,7 @@ App.controller('ProductController',['$scope','ProductService','$http',function($
     self.product_order = {id_product_order:null,amount_product:'',price_amount:'', product_name:''};
     self.products_order = [];
     self.order = {id_order:null,transport:'',date_delivery:'',time_delivery:''};
+    self.order_spot = {id_order_spot:null, address:'',latitude:'',longitude:'',name_spot_type:''};
 
     self.fetchAllProducts = function(){
       ProductService.fetchAllProducts()
@@ -15,6 +16,7 @@ App.controller('ProductController',['$scope','ProductService','$http',function($
               },
               function(errResponse){
                   console.error('Error while fetching Currencies');
+                  return $q.reject(errResponse);
               }
       );
     };
@@ -25,11 +27,29 @@ App.controller('ProductController',['$scope','ProductService','$http',function($
           self.fetchAllProducts,
           function(errResponse){
               console.error('Error while creating Product.');
+              return $q.reject(errResponse);
           }
       );
     };
+
+    self.createOrderSpot = function(order_spot){
+        ProductService.createOrderSpot(order_spot)
+            .then(
+            function(errResponse){
+                console.error('Error while creating Product.');
+                return $q.reject(errResponse);
+            }
+        );
+    };
+
     self.createOrder = function(order){
-        $http.post('http://localhost:8080/order/',order);
+        ProductService.createOrder(order)
+            .then(
+            function(errResponse){
+                console.error('Error while creating Product.');
+                return $q.reject(errResponse);
+            }
+        );
     };
 
     self.fetchAllProducts();
@@ -40,11 +60,15 @@ App.controller('ProductController',['$scope','ProductService','$http',function($
         self.reset();
     };
 
-
     /* create order with defined scope order*/
-    $scope.create = function(){
+    self.create = function(){
         self.createOrder(self.order);
-        /*self.resetOrder();*/
+        self.order = {id_order:null,transport:'',date_delivery:'',time_delivery:''};
+    };
+    /* create order spot*/
+    self.addSpot = function(){
+        self.createOrderSpot(self.order_spot);
+        self.order_spot = {id_order_spot:null, address:'',latitude:'',longitude:'',name_spot_type:''};
     };
 
     /* reset product add form*/
@@ -52,5 +76,4 @@ App.controller('ProductController',['$scope','ProductService','$http',function($
         self.product_order = {id_product_order:null,amount_product:'',price_amount:'', product_name:''};
         $scope.productForm.$setPristine();
     };
-
 }]);
