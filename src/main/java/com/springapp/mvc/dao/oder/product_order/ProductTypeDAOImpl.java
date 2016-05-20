@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Repository("productTypeDAO")
 public class ProductTypeDAOImpl extends AbstractDao<Integer,product_type> implements ProductTypeDAO {
+    @SuppressWarnings("unchecked")
     @Override
     public List<product_type> findAllTypes() {
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("product_type"));

@@ -21,6 +21,7 @@ public class ProductsOrderDAOImpl extends AbstractDao<Integer,product_order> imp
         return product;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<product_order> findAll() {
         Criteria criteria = createEntityCriteria();

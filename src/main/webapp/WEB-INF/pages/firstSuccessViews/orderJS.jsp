@@ -20,7 +20,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
   <script src="<c:url value='/static/js/app.js' />"></script>
   <script src="<c:url value='/static/js/services/order/order_service.js' />"></script>
-  <script src="<c:url value='/static/js/controllers/order/product_order_controller.js' />"></script>
+  <script src="<c:url value='/static/js/controllers/order/order_controller.js' />"></script>
 
 </head>
 <body ng-app ="myApp" class="ng-cloak">

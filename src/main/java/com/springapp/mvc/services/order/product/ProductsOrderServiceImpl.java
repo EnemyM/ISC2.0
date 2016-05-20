@@ -29,6 +29,19 @@ public class ProductsOrderServiceImpl implements ProductsOrderService{
         return productsOrderDAO.findAll();
     }
 
+    /*
+     * Since the method is running with Transaction, No need to call hibernate update explicitly.
+     * Just fetch the entity from db and update it with proper values within transaction.
+     * It will be updated in db once transaction ends.
+     */
+    @Override
+    public void updateProductOrder(product_order product) {
+        product_order entity = productsOrderDAO.findById(product.getId_product_order());
+        if( entity != null){
+            entity.setAmount_product(product.getAmount_product());
+        }
+    }
+
     @Override
     public void save(product_order products_order) {
         productsOrderDAO.save(products_order);

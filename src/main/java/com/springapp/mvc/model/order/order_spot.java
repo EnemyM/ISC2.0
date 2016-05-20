@@ -95,8 +95,9 @@ public class order_spot {
                 ", address='" + address + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
-                ", spot_rype='" + name_spot_type + '\'' +
+                ", name_spot_type='" + name_spot_type + '\'' +
                 ", spot_type=" + spot_type +
+                ", order=" + order +
                 '}';
     }
 }

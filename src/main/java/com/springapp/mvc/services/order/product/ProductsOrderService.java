@@ -11,6 +11,8 @@ public interface ProductsOrderService {
     product_order findById(int id_order);
     List<product_order> findAllProducts();
 
+
+    void updateProductOrder(product_order product);
     void save(product_order products_order);
     void deleteById(int id_product);
 }

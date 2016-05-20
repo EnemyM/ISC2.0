@@ -1,5 +1,5 @@
 .table{
-    height: 300px;
+    /*height: 300px;*/
     overflow-y: scroll;
 }
 /* some stuff for order page elements under the map*/
@@ -76,7 +76,7 @@
 .order-route{
     overflow-y: scroll;
 }
-/* search location filed and button*/
+/* search location div filed and button*/
 .search-spot-location{
     display: block;
     position: absolute;
@@ -94,5 +94,41 @@
 .custom-height-25{
     height: 30px;
 }
+/* error's color of failed entered values into the product order form fields */
+.has-error{
+    color:red;
+}
+/* coords div */
+#coords {
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    margin: 5px auto;
+    color: white;
+    padding: 5px;
+}
+.delete-buttons{
+    z-index: 5;
+    top: 30px;
+    position: absolute;
+    margin-left: 725px;
+    margin-top: 40px;
+    /*float: left;*/
+}
+.delete-buttons > input{
+    float: left;
+}
+/* scroll style*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
 
 

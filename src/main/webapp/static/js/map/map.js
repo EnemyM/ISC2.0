@@ -17,6 +17,14 @@ function initMap() {
     /* add to info window element */
     var infoWindow = new google.maps.InfoWindow;
 
+    // Show the lat and lng under the mouse cursor.
+    var coordsDiv = document.getElementById('coords');
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(coordsDiv);
+    map.addListener('mousemove', function(event) {
+        coordsDiv.textContent =
+            'lat: ' + Math.round(event.latLng.lat()) + ', ' +
+            'lng: ' + Math.round(event.latLng.lng());
+    });
 
     /* when the button 'Add' in route form is clicked, get location and add marker via input address field */
     document.getElementById('search-spot-location-butt').addEventListener('click', function(){
@@ -42,7 +50,6 @@ function initMap() {
         }else {
             geocodeLatLng(event.latLng, geocoder, map, infoWindow);
         }
-        /* add information from added marker on the map by click*/
     });
 
     // Adds a marker to the map.
@@ -69,6 +76,8 @@ function initMap() {
             if (status === google.maps.GeocoderStatus.OK) {
                 resultsMap.setCenter(results[0].geometry.location);
                 resultsMap.setZoom(11);
+
+                /* clean search input */
                 var address = document.getElementById('search-spot-location-in').value = '';
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
@@ -82,17 +91,18 @@ function initMap() {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
                     var marker = new google.maps.Marker({
-                        position: location,
+                        position: location,//set position
                         map: map,
                         draggable: true,//makes marker to be draggable
-                        label: labels[labelIndex++ % labels.length]
+                        label: labels[labelIndex++ % labels.length],
+                        animation: google.maps.Animation.DROP// animation
                     });
                     /* add address into the field address in route form */
                     var address = document.getElementById('spot-address-in').value = results[1].formatted_address;
                     /* add latitude, longitude into appropriate fields in the route form */
                     var latitude = document.getElementById('spot-lat-in').value = results[0].geometry.location.lat();
                     var longitude = document.getElementById('spot-lng-in').value = results[0].geometry.location.lng();
-                    /* add marker into array */
+                    /* push marker into array */
                     markers.push(marker);
                     /* add address into the info window */
                     infowindow.setContent(results[1].formatted_address);
@@ -106,6 +116,7 @@ function initMap() {
                         (function (marker, data) {
                             /* click marker listener*/
                             google.maps.event.addListener(marker, "click", function (e) {
+                                toggleMarkerBounce(marker);
                                 alert(e.latLng);
                                 /* add address into the field address in route form */
                                 var address = document.getElementById('spot-address-in').value = results[1].formatted_address;
@@ -117,13 +128,12 @@ function initMap() {
                                 /* open info window */
                                 infowindow.open(map, marker);
                                 /* when the delete button is clicked */
-                                document.getElementById('delete-spot-butt').addEventListener('click',function(){
+                                document.getElementById('delete-spot-butt').addEventListener('click',marker,function(){
                                     deleteMarker(marker);
                                 });
                                 /* save marker */
                                 document.getElementById('save-spot-butt').addEventListener('click',function(){
                                     var select = document.getElementById('spot-type-s').value;
-
                                 });
                             });
                             /* */
@@ -135,6 +145,10 @@ function initMap() {
                                         if (results[1]) {
                                             /* fill address field on drag event*/
                                             var address = document.getElementById('spot-address-in').value = results[1].formatted_address;
+                                            /* add address into the info window */
+                                            infowindow.setContent(results[1].formatted_address);
+                                            /* open info window */
+                                            infowindow.open(map, marker);
                                         } else {
                                             window.alert('No results found');
                                         }
@@ -173,8 +187,8 @@ function initMap() {
         var address = document.getElementById('spot-address-in').value = '';
         var latitude = document.getElementById('spot-lat-in').value = '';
         var longitude = document.getElementById('spot-lng-in').value = '';
-        /* switch button add to update*/
-        var addUpdateButt = document.getElementById('add-spot-butt').value = 'Add';
+        /*/!* switch value button to add *!/
+        var addUpdateButt = document.getElementById('add-spot-butt').value = 'Add';*/
     }
     /* delete marker by latitude and longitude*/
     function deleteMarker(marker){
@@ -188,10 +202,18 @@ function initMap() {
                 var address = document.getElementById('spot-address-in').value = '';
                 var latitude = document.getElementById('spot-lat-in').value = '';
                 var longitude = document.getElementById('spot-lng-in').value = '';
-                var addUpdateButt = document.getElementById('add-spot-butt').value = 'Add';
+                /*var addUpdateButt = document.getElementById('add-spot-butt').value = 'Add';*/
             }
         }
     }
 
+    /* animation when the marker is clicked */
+    function toggleMarkerBounce(marker) {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
     google.maps.event.addDomListener(window, 'load', initialize);
 }

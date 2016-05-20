@@ -95,4 +95,33 @@ public class product_order {
                 ", product=" + product +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        product_order that = (product_order) o;
+
+        if (id_product_order != null ? !id_product_order.equals(that.id_product_order) : that.id_product_order != null)
+            return false;
+        if (amount_product != null ? !amount_product.equals(that.amount_product) : that.amount_product != null)
+            return false;
+        if (price_amount != null ? !price_amount.equals(that.price_amount) : that.price_amount != null) return false;
+        if (product_name != null ? !product_name.equals(that.product_name) : that.product_name != null) return false;
+        if (order != null ? !order.equals(that.order) : that.order != null) return false;
+        return !(product != null ? !product.equals(that.product) : that.product != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id_product_order != null ? id_product_order.hashCode() : 0;
+        result = 31 * result + (amount_product != null ? amount_product.hashCode() : 0);
+        result = 31 * result + (price_amount != null ? price_amount.hashCode() : 0);
+        result = 31 * result + (product_name != null ? product_name.hashCode() : 0);
+        result = 31 * result + (order != null ? order.hashCode() : 0);
+        result = 31 * result + (product != null ? product.hashCode() : 0);
+        return result;
+    }
 }

@@ -10,14 +10,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="<c:url value='/static/js/app.js' />"></script>
-  <script src="<c:url value='/static/js/services/order/product_order_service.js' />"></script>
-  <script src="<c:url value='/static/js/controllers/order/product_order_controller.js' />"></script>
+  <script src="<c:url value='/static/js/services/order/order_service.js' />"></script>
+  <script src="<c:url value='/static/js/controllers/order/order_controller.js' />"></script>
   <script src="<c:url value='/static/js/map/map.js' />"></script>
   <link rel="stylesheet" href="<c:url value="/static/css/order/orderPageStyle.css"/> "/>
   <script src="<c:url value="/static/js/content/menu.js"/>" ></script>
 </head>
-<body ng-app="myApp" ng-controller="ProductController as ctr">
-<div class="container-fluid" id="wrapper" style="padding-left: 0px;padding-right: 0px;color:#1ca8dd;">
+<body ng-app="myApp">
+<div class="container-fluid" ng-controller="OrderController as ctr" id="wrapper" style="padding-left: 0px;padding-right: 0px;color:#1ca8dd;">
   <div class="row">
     <div class="hr-divider">
       <h3 class="hr-divider-content hr-divider-heading">Order</h3>
@@ -26,11 +26,16 @@
     <div class="search-spot-location">
       <input type="text" id="search-spot-location-in" align="center" value="" placeholder="Search location" class="select-w-300 transparent-background custom-height-25"/>
       <button type="button" id="search-spot-location-butt" class="transparent-background custom-height-25"><span class="glyphicon glyphicon-search"></span></button>
+      <%-- delete buttons --%>
+      <input id="delete-spot-butt" type="button" ng-click="deleteSpot()" value="Delete" class="btn btn-default btn-sm btn-delete">
+      <input id="delete-all-spot-butt" type="button" ng-click="deleteAllSpot()" value="Delete All" class="btn btn-default btn-sm btn-delete">
     </div>
+    <%-- mous cursor's coords --%>
+    <div id="coords"></div>
     <div class="orderMap col-lg-12 col-md-10 col-sm-12" id="myMap"></div>
     <%-- product order --%>
     <div class="product-order col-lg-4 col-md-5 col-sm-4 ">
-      <%--Top add the product, amount --%>
+      <%-- Top of the list with added products, amount --%>
         <div class="top-add-form">
           <div class="mar-top-10"><span><center>Products Order</center></span></div>
           <form ng-submit="ctr.submit()" name="productForm">
@@ -51,17 +56,24 @@
                 <div class="amount-product-in mar-top-10" >
                   <label>Amount product</label><br>
                   <input type="text" ng-model="ctr.product_order.amount_product" placeholder="Amount" required="true" size="5px"
-                         class="select-w-300">
+                         class="select-w-300" ng-maxlength="10" id="product_order">
+                  <div class="has-error" ng-show="productForm.$dirty">
+                    <span ng-show="productForm.product_order.$error.required">This is a required field</span>
+                    <span ng-show="productForm.product_order.$error.maxlength">Maximum length required is 10</span>
+                    <span ng-show="productForm.product_order.$invalid">This field is invalid </span>
+                  </div>
                 </div>
                 <div class="button-add-product mar-top-10">
-                  <input type="submit" value="Add" ng-disabled="productForm.$invalid" class="select-w-300">
+                  <input type="submit" value="{{!ctr.product_order.price_amount ? 'Add' : 'Update'}}" ng-disabled="productForm.$invalid" class="select-w-300">
                 </div>
               </div><br>
             </div>
           </form>
         </div>
-        <%-- Dow list of the shosen product --%>
+        <%-- Bottom of the list product panel --%>
         <div class="panel panel-default">
+          <%-- Default panel contents --%>
+          <div class="panel-heading" align="center"><span class="lead">List of Products </span></div>
           <div class="tablecontainer">
             <table class="table table-hover">
                 <%--Head panel--%>
@@ -80,7 +92,7 @@
                       <td><span ng-bind="product_order.product_name"></span></td>
                       <td><span ng-bind="product_order.amount_product"></span></td>
                       <td><span ng-bind="product_order.price_amount"></span></td>
-                      <td><button type="button">+/-</button> <button type="button">-</button></td>
+                      <td><button type="button" ng-click="ctr.edit(product_order.product_name)"><span class="glyphicon glyphicon glyphicon-refresh"></span></button><button type="button" ng-click="ctr.remove(product_order.product_name)"><span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
                     </tbody>
                   </div>
@@ -119,8 +131,7 @@
         </div>
         <div class="button-spot mar-top-10" align="center">
           <input id="save-spot-butt" type="submit" ng-click="ctrl.addSpot()" value="Save" class="select-w-300" ng-disabled="orderRoute.$invalid"/>
-          <input id="delete-spot-butt" type="button" ng-click="deleteSpot()" value="Delete" class="select-w-300">
-          <input id="delete-all-spot-butt" type="button" ng-click="deleteAllSpot()" value="Delete All" class="select-w-300">
+          <input id="delete-all-spot-butt" type="button" ng-click="deleteAllSpot()" value="Build route" class="select-w-300">
         </div>
       </form>
     </div>
@@ -139,7 +150,7 @@
         </div>
         <div class="transport mar-top-10">
           <label>Transport</label><br>
-          <select ng-model="ctr.order.transport" required="true" class="select-w-300">
+          <select ng-model="ctr.order.name_transport" required="true" class="select-w-300">
             <option value="">Choose the transport</option>
             <c:forEach items="${transports}" var="transport">
               <option>${transport.name_transport}</option>
@@ -153,6 +164,7 @@
     </div>
   </div>
 </div>
+<%-- This is the key for using Google Maps APIv3--%>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcvW79JU7_-mGjdioRMcwbIBJIBBIgZ5Q&callback=initMap">
 </script>

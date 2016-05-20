@@ -10,7 +10,11 @@ import java.util.List;
 public interface ProductDAO {
     product findByName(String name);
     product findById(int id_product);
+
     void save(product product);
+
+
+
     void deleteById(int id_product);
     List<product> findAllProducts();
 }
