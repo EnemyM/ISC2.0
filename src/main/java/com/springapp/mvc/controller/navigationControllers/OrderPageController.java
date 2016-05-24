@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Anton on 07.03.2016.
  */
 @Controller
-public class FirstPageController {
+public class OrderPageController {
 
     /* list for added products in order*/
     private static List<product_order> products = new LinkedList<product_order>();
@@ -35,9 +35,9 @@ public class FirstPageController {
     SpotTypeService spotTypeService;
 
     @RequestMapping(value = {"/home","/order","/"})
-    public String firstPage(){
+    public String getOrderPage(){
 
-        return "firstPage";
+        return "OrderPage";
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.POST)
@@ -51,14 +51,8 @@ public class FirstPageController {
         com.springapp.mvc.model.order.products_order.product_order newProduct = new product_order();
 
         product.addAttribute("product_order", newProduct);
-        return "firstPage";
+        return "OrderPage";
     }
-
-    /*@RequestMapping(value = {"/"}, method = RequestMethod.POST)
-    public @ResponseBody String add(@ModelAttribute("product_order") product_order product_order,Model product){
-        String str = product_order.getAmount_product();
-        return str;
-    }*/
 
      /* load list of the products into the order page */
     @ModelAttribute("products")

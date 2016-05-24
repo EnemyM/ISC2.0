@@ -31,10 +31,9 @@ public class OrderDAOImpl extends AbstractDao<Integer, order> implements OrderDA
     @SuppressWarnings("unchecked")
     @Override
     public List<order> findAllOrders() {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("date_order"));
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("id_order"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        List<order> orders = (List<order>) criteria.list();
-        return orders;
+        return (List<order>) criteria.list();
     }
 
     @Override

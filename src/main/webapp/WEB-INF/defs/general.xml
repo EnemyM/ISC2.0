@@ -10,8 +10,8 @@
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/WEB-INF/pages/baseViewTemplate/template/main/footer.jsp"/>
     </definition>
-    <!-- First page -->
-    <definition name="firstPage" extends="base">
+    <!-- Order page -->
+    <definition name="OrderPage" extends="base">
         <put-attribute name="title" value="Home"/>
         <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/template/main/header.jsp"/>
         <!--<put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/order.jsp"/>-->
@@ -19,12 +19,19 @@
         <put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/order/productOrderJS.jsp"/>
         <!--<put-attribute name="body" value="/WEB-INF/pages/registration/registrationPage.jsp"/>-->
     </definition>
-    <!-- Second page -->
-    <definition name="secondPage" extends="base">
+    <!-- Statistic page -->
+    <definition name="StatisticPage" extends="base">
         <put-attribute name="title" value="Order"/>
         <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/template/main/header.jsp"/>
         <!--<put-attribute name="body" value="/WEB-INF/pages/firstSuccessViews/orderJS.jsp"/>-->
         <put-attribute name="body" value="/WEB-INF/pages/registration/registrationPage.jsp"/>
+    </definition>
+    <!-- History page -->
+    <definition name="HistoryPage" extends="base">
+        <put-attribute name="title" value="History"/>
+        <put-attribute name="header" value="/WEB-INF/pages/baseViewTemplate/template/main/header.jsp"/>
+        <!--<put-attribute name="body" value="/WEB-INF/pages/firstSuccessViews/orderJS.jsp"/>-->
+        <put-attribute name="body" value="/WEB-INF/pages/baseViewTemplate/body/history/history.jsp"/>
     </definition>
 
 </tiles-definitions>

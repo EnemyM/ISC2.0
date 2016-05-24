@@ -1,18 +1,24 @@
 .table{
     /*height: 300px;*/
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 /* some stuff for order page elements under the map*/
-.product-order, .order-content, .orderTr,.order-route {
+.product-order, .order-content, .orderTr,.order-route, .order-spot {
     height: 300px;
     border: 0.5px solid darkmagenta;
 }
+
 /* order map */
 .orderMap{
     height:500px;
+    padding-left: 20px;
+}
+.order-spot{
+    padding-left: 40px;
+    height:500px;
 }
 .product-order{
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 /* header divider */
 .hr-divider{
@@ -74,16 +80,16 @@
     margin-left: 15px;
 }
 .order-route{
-    overflow-y: scroll;
+    overflow-y: auto;
 }
+
 /* search location div filed and button*/
 .search-spot-location{
     display: block;
     position: absolute;
-    top: 30px;
-    margin-left: 125px;
+    /*top: 30px;*/
+    margin: 11px 125px;
     z-index: 5;
-    margin-top: 40px;
     text-align: center;
     background: rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease-out;
@@ -102,7 +108,7 @@
 #coords {
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
-    margin: 5px auto;
+    margin: 460px auto;
     color: white;
     padding: 5px;
 }
@@ -116,6 +122,28 @@
 }
 .delete-buttons > input{
     float: left;
+}
+.history-panel{
+    margin-top: 20px;
+    background-color: #434857;
+}
+.panel-heading-order{
+    background-color: #434857;
+}
+.panel-order{
+    background-color: #434857;
+    height: 150px;
+    overflow-y: auto;
+}
+#right-panel{
+    width: 100%;
+    overflow-y: auto;
+}
+.panel-spot{
+    height: 150px;
+}
+.panel-spot{
+    overflow-y: scroll;
 }
 /* scroll style*/
 ::-webkit-scrollbar {

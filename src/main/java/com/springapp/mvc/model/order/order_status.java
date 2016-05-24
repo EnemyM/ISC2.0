@@ -49,7 +49,12 @@ public class order_status {
         this.orders = orders;
     }
 
-    public String toString(){
-        return "id order status: " + id_order_status + ", order status: " + order_status;
+    @Override
+    public String toString() {
+        return "order_status{" +
+                "id_order_status=" + id_order_status +
+                ", order_status='" + order_status + '\'' +
+                ", orders=" + orders +
+                '}';
     }
 }

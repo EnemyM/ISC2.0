@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 <script src="<c:url value="/static/js/content/menu.js"/>" ></script>
-<script src="<c:url value="/static/js/content/fullMenu.js"/>" ></script>
+<script src="<c:url value="/static/js/content/fullScreenMenu.js"/>" ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="<c:url value="/static/js/content/jqueryrotate.2.1.js"/> "></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -34,7 +34,8 @@
     }
     .logo{
         padding: 20px;
-        position: absolute;
+        left: 50px;
+        position: relative;
         height: 75px;
         float: left;
         color: #ffffff;
@@ -52,13 +53,11 @@
         transform: rotate(15deg);
     }
 
-
     .nav {
         position: relative;
         width: auto;
         display: inline-block;
         border: none;
-
     }
 
     .btn-nav {
@@ -84,7 +83,7 @@
     .icon-bar {
         display: block;
         margin: 6px 0;
-        width: 40px;
+        width: 30px;
         height: 5px;
         background-color: #FFFFFF;
     }
@@ -310,7 +309,9 @@
     .hidden {
         display: none;
     }
-
+    .logo{
+        font-size: 30px;
+    }
 </style>
 
 <div class="header navbar-fixed-top" id="header">
@@ -326,8 +327,8 @@
                 <span class="icon-bar bottom"></span>
             </button>
         </div>
-
     <div class="logo">ISC the best Information System of control</div>
+
 </div>
 <script>
     $(window).load(function() {

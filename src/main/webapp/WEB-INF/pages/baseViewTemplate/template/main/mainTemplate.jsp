@@ -60,7 +60,6 @@
       width: 100%;
       position: absolute;
       border: 1px solid black;
-      /*padding-left: 70px;*/
       background: #252830;
     }
     #wrapper.menuDisplayed #sidebar-wrapper-list{
@@ -284,7 +283,19 @@
     }
 
     h1 { position:absolute; top:100px; left:100px; color:#fff;}
-    .jquery-script-ads { position:absolute; top:200px; left:100px;}
+    /* scroll style*/
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+
   </style>
 </head>
 <body>
@@ -322,8 +333,8 @@
   <div class="nav-content hideNav hidden">
     <ul class="nav-list">
       <li class="nav-item"><a href="<c:url value="/order"/>" title="Order" class="item-anchor">Order</a></li>
-      <li class="nav-item"><a href="<c:url value="/secondPage"/> " title="Statistic" class="item-anchor">Statistic</a></li>
-      <li class="nav-item"><a href="#" class="item-anchor">History</a></li>
+      <li class="nav-item"><a href="<c:url value="/statistic"/> " title="Statistic" class="item-anchor">Statistic</a></li>
+      <li class="nav-item"><a href="<c:url value="/history"/>" class="item-anchor">History</a></li>
       <li class="nav-item"><a href="#" class="item-anchor">Settings</a></li>
     </ul>
   </div>

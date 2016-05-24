@@ -5,6 +5,7 @@ import com.springapp.mvc.model.order.order_spot;
 import com.springapp.mvc.model.order.products_order.product;
 import com.springapp.mvc.model.order.products_order.product_order;
 import com.springapp.mvc.services.order.OrderService;
+import com.springapp.mvc.services.order.OrderSpotService;
 import com.springapp.mvc.services.order.product.ProductService;
 import com.springapp.mvc.services.order.product.ProductsOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * Created by Anton Mostipan on 23.03.2016.
@@ -34,17 +33,24 @@ public class RestOrder {
     @Autowired
     OrderService orderService;
 
-    private static List<product_order> ListProductsOrder = new LinkedList<product_order>();
+    @Autowired
+    OrderSpotService orderSpotService;
+
+    /* order products */
+    private static Set<product_order> listProductsOrder = new HashSet<product_order>();
+
+    /* order spots */
+    private static Set<order_spot> listOrderSpots = new HashSet<order_spot>();
 
     /* Retrieve all products  */
     @RequestMapping(value = {"/order/product/"}, method = RequestMethod.GET)
-    public ResponseEntity<List<product_order>> listProduct(){
-        if(ListProductsOrder.isEmpty()){
+    public ResponseEntity<Set<product_order>> listProduct(){
+        if(listProductsOrder.isEmpty()){
             System.out.println("List is empty");
-            return new ResponseEntity<List<product_order>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Set<product_order>>(HttpStatus.NO_CONTENT);
         }
         System.out.println("Sent  list");
-        return new ResponseEntity<List<product_order>>(ListProductsOrder, HttpStatus.OK);
+        return new ResponseEntity<Set<product_order>>(listProductsOrder, HttpStatus.OK);
     }
 
     /* Retrieve single product */
@@ -60,7 +66,7 @@ public class RestOrder {
         return new ResponseEntity<product_order>(product, HttpStatus.OK);
     }
 
-    /* Add product order into the set of order */
+    /* Add product order into the order list */
     @RequestMapping(value = {"/order/product/"},method = RequestMethod.POST)
     public ResponseEntity<Void> addProduct(@RequestBody product_order productOrder){
         System.out.println("Product order has been added ");
@@ -68,7 +74,7 @@ public class RestOrder {
         product entity = productService.findProductByName(productOrder.getProduct_name());
         productOrder.setPrice_amount(Double.valueOf(productOrder.getAmount_product()) *
                 entity.getProduct_cost());
-        ListProductsOrder.add(productOrder);
+        listProductsOrder.add(productOrder);
         /*String newAmount  = String.valueOf(Integer.valueOf(entity.getProduct_amount())
                         - Integer.valueOf(productOrder.getAmount_product()));
 
@@ -82,7 +88,7 @@ public class RestOrder {
     @RequestMapping(value = {"/order/product/{product_name}"}, method = RequestMethod.PUT)
     public ResponseEntity<product_order> updateProduct(@PathVariable("product_name") String name, @RequestBody product_order product){
         System.out.println("Updating product order with name " + name);
-        for(ListIterator<product_order> iterator = ListProductsOrder.listIterator();iterator.hasNext();){
+        for(Iterator<product_order> iterator = listProductsOrder.iterator();iterator.hasNext();){
             product_order itProd = iterator.next();
             if(itProd.getPrice_amount().equals(product.getPrice_amount())){
                 try {
@@ -90,7 +96,8 @@ public class RestOrder {
                     product.setPrice_amount(Double.valueOf(product.getAmount_product()) *
                             entity.getProduct_cost());
                     /*replace this product with updated*/
-                    iterator.set(product);
+                    listProductsOrder.remove(itProd);
+                    listProductsOrder.add(product);
 
                 }catch (Exception e){
                     System.out.println("" + e);
@@ -104,7 +111,7 @@ public class RestOrder {
     @RequestMapping(value = {"/order/product/{product_name}"}, method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteProduct(@PathVariable("product_name") String product_name){
         System.out.println("Inside of the delete method ");
-        for(ListIterator<product_order> iterator = ListProductsOrder.listIterator();iterator.hasNext();){
+        for(Iterator<product_order> iterator = listProductsOrder.iterator();iterator.hasNext();){
             product_order currProd = iterator.next();
             if(currProd.getProduct_name().equals(product_name)){
                 System.out.println("delete -------------------------");
@@ -114,12 +121,41 @@ public class RestOrder {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
+    /* Retrieve all order spots  */
+    @RequestMapping(value = {"order/order_spot/"}, method = RequestMethod.GET)
+    public ResponseEntity<Set<order_spot>> getOrderSpots(){
+
+        if (listOrderSpots.isEmpty()){
+            return new ResponseEntity<Set<order_spot>>(HttpStatus.NO_CONTENT);
+        }
+        System.out.println("Orders spots sent");
+        return new ResponseEntity<Set<order_spot>>(listOrderSpots,HttpStatus.OK);
+    }
+
     /* Create order spot and add it into set of route spots */
     @RequestMapping(value = {"order/order_spot/"}, method = RequestMethod.POST)
     public ResponseEntity<Void> addOrderSpot(@Valid @RequestBody order_spot spot){
-        System.out.println(spot.toString());
+        System.out.println("Creating order spot " + spot.toString());
+
+        try{
+            listOrderSpots.add(spot);
+        }catch (Exception e){
+            System.out.println(e);
+        }
         System.out.println("Order spot has been created");
         return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    /* Fetch all orders*/
+    @RequestMapping(value = {"/order/"}, method = RequestMethod.GET)
+    public ResponseEntity<List<order>> setOrders(){
+
+        List<order> listOrders = orderService.findAllOrders();
+
+        if(listOrders.isEmpty()){
+            return new ResponseEntity<List<order>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<order>>(listOrders,HttpStatus.OK);
     }
 
     /* Create new order */
@@ -127,7 +163,7 @@ public class RestOrder {
     public ResponseEntity<Void> addOrder(@RequestBody order sentOrder){
         System.out.println(sentOrder.toString());
         System.out.println("Order has been created");
-        ListProductsOrder = new LinkedList<>();
+        listProductsOrder = new HashSet<>();
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }

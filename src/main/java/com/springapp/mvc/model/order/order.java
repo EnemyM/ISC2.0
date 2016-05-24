@@ -9,7 +9,6 @@ import com.springapp.mvc.model.user.user;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,14 +23,12 @@ public class order {
     private Integer id_order;
 
     @NotEmpty
-    @Temporal(TemporalType.DATE)
     @Column(name = "date_order")
-    private Date date_order;
+    private String date_order;
 
     @NotEmpty
-    @Temporal(TemporalType.DATE)
     @Column(name = "date_delivery")
-    private Date date_delivery;
+    private String date_delivery;
 
     @NotEmpty
     @Column(name = "time_delivery")
@@ -72,6 +69,17 @@ public class order {
             inverseJoinColumns = {@JoinColumn(name = "order_route_id_order_route")})
     private Set<order_route> order_routes = new HashSet<order_route>();
 
+
+    public order(Integer id_order, String date_order, String date_delivery, String time_delivery, Double price_order, String name_transport) {
+        this.id_order = id_order;
+        this.date_order = date_order;
+        this.date_delivery = date_delivery;
+        this.time_delivery = time_delivery;
+        this.price_order = price_order;
+        this.name_transport = name_transport;
+
+    }
+
     public String getName_transport() {
         return name_transport;
     }
@@ -88,19 +96,19 @@ public class order {
         this.id_order = id_order;
     }
 
-    public Date getDate_order() {
+    public String getDate_order() {
         return date_order;
     }
 
-    public void setDate_order(Date date_order) {
+    public void setDate_order(String date_order) {
         this.date_order = date_order;
     }
 
-    public Date getDate_delivery() {
+    public String getDate_delivery() {
         return date_delivery;
     }
 
-    public void setDate_delivery(Date date_delivery) {
+    public void setDate_delivery(String date_delivery) {
         this.date_delivery = date_delivery;
     }
 
