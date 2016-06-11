@@ -2,7 +2,6 @@ package com.springapp.mvc.dao.oder;
 
 import com.springapp.mvc.model.order.order;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
 public interface OrderDAO {
 
     order findById(int id_order);
-    order findByDate(Date date_order);
+    order findByDate(String date_order);
     List<order> findAllOrders();
 
     void save(order order);

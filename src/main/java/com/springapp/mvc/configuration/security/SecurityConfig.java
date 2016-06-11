@@ -32,16 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
-               .authorizeRequests()
-                .antMatchers("/", "/login","/registration/").permitAll()
-                .antMatchers("/main/**").access("hasRole('ROLE_ADMIN') and hasRole('ROLE_CLIENT')")
-                .antMatchers("/main/**").access("hasRole('ROLE_ADMIN')")
+        http.authorizeRequests()
+                .antMatchers("/login","/registration/").permitAll()
+                .antMatchers("/").access("hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')")
+
 //               .anyRequest().authenticated()
 
-               .and().formLogin().loginPage("/")
-               .defaultSuccessUrl("/main/")
-                .failureUrl("/")
+               .and().formLogin().loginPage("/login")
+               .defaultSuccessUrl("/")
+                .failureUrl("/login")
                 .usernameParameter("email_user")
                 .passwordParameter("user_password")
                 .and().logout().logoutSuccessUrl("/")
@@ -50,7 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
+        return new BCryptPasswordEncoder();
     }
 }

@@ -1,6 +1,10 @@
 package com.springapp.mvc.model.order;
 
+import com.springapp.mvc.model.order.products_order.product_order;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Anton on 26.04.2016.
@@ -31,6 +35,12 @@ public class order_spot {
     @ManyToOne
     @JoinColumn(name = "id_order")
     private order order;
+
+    @OneToMany(mappedBy = "order_spot",cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<product_order> products_order = new HashSet<product_order>();
+
+    private Integer hashCode;
 
     public Integer getId_order_spot() {
         return id_order_spot;
@@ -88,6 +98,30 @@ public class order_spot {
         this.order = order;
     }
 
+    public Integer getHashCode() {
+        return hashCode;
+    }
+
+    public void setHashCode(Integer hashCode) {
+        this.hashCode = hashCode;
+    }
+
+    public Set<product_order> getProducts_order() {
+        return products_order;
+    }
+
+    public void setProducts_order(Set<product_order> products_order) {
+        this.products_order = products_order;
+    }
+
+    public void addProduct(product_order product){
+        product.setOrder_spot(this);
+        getProducts_order().add(product);
+    }
+
+    public void removeProduct(product_order product){
+        getProducts_order().remove(product);
+    }
     @Override
     public String toString() {
         return "order_spot{" +
@@ -98,6 +132,7 @@ public class order_spot {
                 ", name_spot_type='" + name_spot_type + '\'' +
                 ", spot_type=" + spot_type +
                 ", order=" + order +
+                ", hashCode=" + hashCode +
                 '}';
     }
 }

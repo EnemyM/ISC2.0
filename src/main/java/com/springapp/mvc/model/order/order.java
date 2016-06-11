@@ -4,12 +4,12 @@ package com.springapp.mvc.model.order;
  * Created by Anton on 24.01.2016.
  */
 
-import com.springapp.mvc.model.order.products_order.product_order;
 import com.springapp.mvc.model.user.user;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 
@@ -23,10 +23,6 @@ public class order {
     private Integer id_order;
 
     @NotEmpty
-    @Column(name = "date_order")
-    private String date_order;
-
-    @NotEmpty
     @Column(name = "date_delivery")
     private String date_delivery;
 
@@ -35,10 +31,13 @@ public class order {
     private String time_delivery;
 
     @NotEmpty
-    @Column(name = "price_order")
-    private Double price_order;
+    @Column(name = "date_order")
+    private String date_order;
 
-    @Column(name = "name_transport")
+    @NotEmpty
+    @Column(name = "price_order")
+    private String price_order;
+
     private String name_transport;
 
     @ManyToOne
@@ -57,12 +56,6 @@ public class order {
     orphanRemoval = true)
     private Set<order_spot> order_spots = new HashSet<order_spot>();
 
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,
-    orphanRemoval = true)
-    private Set<product_order> products_order = new HashSet<product_order>();
-    /*private List<product_order> products_order = LazyList.decorate(new ArrayList<product_order>(),
-            FactoryUtils.instantiateFactory(product_order.class));*/
-
     @ManyToMany
     @JoinTable(name = "order_route_has_order",
             joinColumns = {@JoinColumn(name = "order_id_order")},
@@ -70,14 +63,15 @@ public class order {
     private Set<order_route> order_routes = new HashSet<order_route>();
 
 
-    public order(Integer id_order, String date_order, String date_delivery, String time_delivery, Double price_order, String name_transport) {
+    public order() {
+    }
+
+    public order(Integer id_order, String date_order, String date_delivery, String time_delivery, String price_order) {
         this.id_order = id_order;
         this.date_order = date_order;
         this.date_delivery = date_delivery;
         this.time_delivery = time_delivery;
         this.price_order = price_order;
-        this.name_transport = name_transport;
-
     }
 
     public String getName_transport() {
@@ -120,11 +114,11 @@ public class order {
         this.time_delivery = time_delivery;
     }
 
-    public Double getPrice_order() {
+    public String getPrice_order() {
         return price_order;
     }
 
-    public void setPrice_order(Double price_order) {
+    public void setPrice_order(String price_order) {
         this.price_order = price_order;
     }
 
@@ -144,13 +138,6 @@ public class order {
         this.order_status = order_status;
     }
 
-    public Set<product_order> getProducts_order() {
-        return products_order;
-    }
-
-    public void setProducts_order(Set<product_order> products_orders) {
-        this.products_order = products_orders;
-    }
 
     public com.springapp.mvc.model.order.transport getTransport() {
         return transport;
@@ -177,6 +164,21 @@ public class order {
         this.order_spots = order_spots;
     }
 
+    /* some methods to add contained entities into the order */
+    public void addOrderSpot(order_spot spot){
+        spot.setOrder(this);
+        getOrder_spots().add(spot);
+    }
+    public void addAllOrderSpots(Set<order_spot> spots){
+        for (Iterator<order_spot> i = spots.iterator(); i.hasNext();){
+            order_spot current = i.next();
+            current.setOrder(this);
+            getOrder_spots().add(current);
+        }
+    }
+    public void  removeOrderSpot(order_spot spot){
+        getOrder_spots().remove(spot);
+    }
     @Override
     public String toString() {
         return "order{" +
@@ -185,12 +187,11 @@ public class order {
                 ", date_delivery=" + date_delivery +
                 ", time_delivery='" + time_delivery + '\'' +
                 ", price_order=" + price_order +
-                ", name_transport='" + name_transport + '\'' +
+                /*", name_transport='" + name_transport + '\'' +*/
                 ", user=" + user +
                 ", order_status=" + order_status +
                 ", transport=" + transport +
                 ", order_spots=" + order_spots +
-                ", products_order=" + products_order +
                 ", order_routes=" + order_routes +
                 '}';
     }

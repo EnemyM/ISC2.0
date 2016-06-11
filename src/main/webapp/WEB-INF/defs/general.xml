@@ -3,10 +3,15 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+    <!-- Login page template-->
+    <definition name="security" template="/WEB-INF/pages/security/Login.jsp"/>
+
+    <!-- registration page -->
+    <definition name="registration" template="/WEB-INF/pages/registration/registrationPage.jsp"/>
+
     <!-- Base template -->
     <definition name="base" template="/WEB-INF/pages/baseViewTemplate/template/main/mainTemplate.jsp">
         <put-attribute name="menu" value="/WEB-INF/pages/baseViewTemplate/template/main/menu.jsp"/>
-        <put-attribute name="menuList" value="/WEB-INF/pages/baseViewTemplate/template/main/menuList.jsp"/>
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/WEB-INF/pages/baseViewTemplate/template/main/footer.jsp"/>
     </definition>

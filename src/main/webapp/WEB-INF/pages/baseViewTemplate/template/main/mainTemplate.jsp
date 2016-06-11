@@ -10,6 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <link href="<c:url value='/static/css/template/templateStyle.css' />" rel="stylesheet"/>
   <script src="<c:url value="/static/js/content/menu.js"/>" ></script>
+
   <style>
     body,html{
       font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -18,6 +19,7 @@
       width: 100%;
       padding: 0;
       margin: 0;
+      background-color: #252830;
     }
 
     .header{
@@ -297,6 +299,9 @@
     }
 
   </style>
+  <script>
+
+  </script>
 </head>
 <body>
   <div class="wrapper" id="wrapper">
@@ -346,5 +351,6 @@
       });
     });
   </script>
+
 </body>
 </html>

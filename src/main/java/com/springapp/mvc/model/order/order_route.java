@@ -26,6 +26,9 @@ public class order_route {
     @Column(name = "end_route")
     private String end_route;
 
+    @Column(name = "route")
+    private String route;
+
     @ManyToMany
     @JoinTable(name = "order_route_has_order",
             joinColumns = {@JoinColumn(name = "order_route_id_order_route")},
@@ -85,14 +88,51 @@ public class order_route {
         getOrder_route_spots().remove(order_route_spot);
     }
 
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
     @Override
     public String toString() {
         return "order_route{" +
                 "id_order_route=" + id_order_route +
                 ", start_route='" + start_route + '\'' +
                 ", end_route='" + end_route + '\'' +
+                ", route='" + route + '\'' +
                 ", orders=" + orders +
                 ", order_route_spots=" + order_route_spots +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        order_route route1 = (order_route) o;
+
+        if (id_order_route != null ? !id_order_route.equals(route1.id_order_route) : route1.id_order_route != null)
+            return false;
+        if (start_route != null ? !start_route.equals(route1.start_route) : route1.start_route != null) return false;
+        if (end_route != null ? !end_route.equals(route1.end_route) : route1.end_route != null) return false;
+        if (route != null ? !route.equals(route1.route) : route1.route != null) return false;
+        if (orders != null ? !orders.equals(route1.orders) : route1.orders != null) return false;
+        return !(order_route_spots != null ? !order_route_spots.equals(route1.order_route_spots) : route1.order_route_spots != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id_order_route != null ? id_order_route.hashCode() : 0;
+        result = 31 * result + (start_route != null ? start_route.hashCode() : 0);
+        result = 31 * result + (end_route != null ? end_route.hashCode() : 0);
+        result = 31 * result + (route != null ? route.hashCode() : 0);
+        result = 31 * result + (orders != null ? orders.hashCode() : 0);
+        result = 31 * result + (order_route_spots != null ? order_route_spots.hashCode() : 0);
+        return result;
     }
 }

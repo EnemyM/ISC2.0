@@ -3,7 +3,6 @@ package com.springapp.mvc.model.order.products_order;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,16 +24,16 @@ public class product {
 
     @NotEmpty
     @Column(name = "product_cost")
-    private Double product_cost;
+    private String product_cost;
 
     @NotEmpty
     @Column(name = "product_amount")
     private String product_amount;
 
     @NotEmpty
-    @Temporal(TemporalType.DATE)
     @Column(name = "product_date_storage")
-    private Date product_date_storage;
+    private String product_date_storage;
+
 
     @ManyToOne
     @JoinColumn(name = "id_product_type")
@@ -60,11 +59,11 @@ public class product {
         this.product_name = product_name;
     }
 
-    public Double getProduct_cost() {
+    public String getProduct_cost() {
         return product_cost;
     }
 
-    public void setProduct_cost(Double product_cost) {
+    public void setProduct_cost(String product_cost) {
         this.product_cost = product_cost;
     }
 
@@ -76,11 +75,11 @@ public class product {
         this.product_amount = product_amount;
     }
 
-    public Date getProduct_date_storage() {
+    public String getProduct_date_storage() {
         return product_date_storage;
     }
 
-    public void setProduct_date_storage(Date product_date_storage) {
+    public void setProduct_date_storage(String product_date_storage) {
         this.product_date_storage = product_date_storage;
     }
 
@@ -96,12 +95,28 @@ public class product {
         return products_orders;
     }
 
+
     public void setProducts_orders(Set<product_order> products_orders) {
         this.products_orders = products_orders;
     }
+    public void addProductOrder(product_order product){
+        product.setProduct(this);
+        getProducts_orders().add(product);
+    }
+    public void removeProductOrder(product_order product){
+        getProducts_orders().remove(product);
+    }
 
-    public String toString(){
-        return "id product: " + id_product + ", product name: " + product_name + ", product cost" + product_cost
-                + ", product amount: " + product_amount + ", product date storage: " + product_date_storage;
+    @Override
+    public String toString() {
+        return "product{" +
+                "id_product=" + id_product +
+                ", product_name='" + product_name + '\'' +
+                ", product_cost='" + product_cost + '\'' +
+                ", product_amount='" + product_amount + '\'' +
+                ", product_date_storage=" + product_date_storage +
+                ", product_type=" + product_type +
+                ", products_orders=" + products_orders +
+                '}';
     }
 }

@@ -13,28 +13,35 @@ import java.util.List;
  */
 @Service("orderStatusService")
 @Transactional
-public class OrderStatusServiceImpl implements OrderStatusDAO{
+public class OrderStatusServiceImpl implements OrderStatusService{
+
 
     @Autowired
-    private OrderStatusDAO orderStatusDAO;
+    private OrderStatusDAO dao;
+
 
     @Override
-    public order_status findById(int id_status) {
-        return orderStatusDAO.findById(id_status);
+    public order_status findStatusById(int id_status) {
+        return dao.findById(id_status);
     }
 
     @Override
-    public List<order_status> findAllStatuses() {
-        return orderStatusDAO.findAllStatuses();
+    public order_status findTypeByName(String status) {
+        return dao.findByName(status);
+    }
+
+    @Override
+    public List<order_status> findAllTypes() {
+        return null;
     }
 
     @Override
     public void save(order_status status) {
-        orderStatusDAO.save(status);
+        dao.save(status);
     }
 
     @Override
     public void deleteById(int id_order_status) {
-        orderStatusDAO.deleteById(id_order_status);
+        dao.deleteById(id_order_status);
     }
 }

@@ -7,7 +7,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,12 +16,12 @@ import java.util.List;
 public class OrderDAOImpl extends AbstractDao<Integer, order> implements OrderDAO{
     @Override
     public order findById(int id_order) {
-        order order = getByKey(id_order);
-        return order;
+
+        return getByKey(id_order);
     }
 
     @Override
-    public order findByDate(Date date_order) {
+    public order findByDate(String date_order) {
         Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("date_order",date_order));
         return (order) criteria.uniqueResult();

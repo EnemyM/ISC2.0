@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
-
+  <link rel="stylesheet" href="<c:url value="/static/css/order/orderPageStyle.css"/> "/>
   <style>
     .panel{
       width: 100%;
@@ -39,7 +39,6 @@
               <td><span>${order.price_order}</span></td>
               <td><span>${order.date_delivery}</span></td>
               <td><span>${order.time_delivery}</span></td>
-              <td><span>${order.name_transport}</span></td>
           </tr>
           </c:forEach>
       </tbody>

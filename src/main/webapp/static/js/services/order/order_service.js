@@ -4,8 +4,8 @@ App.factory('OrderService',['$http', '$q', function($http,$q){
     /* basic order page url */
     var baseUrl = 'http://localhost:8080/order';
     return{
-        fetchAllProducts: function(){
-            return $http.get(baseUrl + '/product/')
+        createProduct: function(){
+            return $http.post(baseUrl + '/product/')
                 .then(
                 function(response){
                     return response.data;
@@ -16,8 +16,21 @@ App.factory('OrderService',['$http', '$q', function($http,$q){
                 }
             );
         },
-        createProduct: function(product_order){
-            return $http.post(baseUrl + '/product/',product_order)
+
+        fetchAllOrderProducts: function(){
+            return $http.get(baseUrl + '/product_order/')
+                .then(
+                function(response){
+                    return response.data;
+                },
+                function(errResponse){
+                    console.error('Error while fetching users');
+                    return $q.reject(errResponse);
+                }
+            );
+        },
+        createOrderProduct: function(product_order){
+            return $http.post(baseUrl + '/product_order/',product_order)
                 .then(
                 function(response){
                     return response.data;
@@ -28,8 +41,8 @@ App.factory('OrderService',['$http', '$q', function($http,$q){
                 }
             );
         },
-        updateProduct: function(product_order,product_name){
-            return $http.put(baseUrl + '/product/'+ product_name, product_order)
+        updateOrderProduct: function(product_order,product_name){
+            return $http.put(baseUrl + '/product_order/'+ product_name, product_order)
                 .then(
                 function(response){
                     return response.data;
@@ -40,8 +53,8 @@ App.factory('OrderService',['$http', '$q', function($http,$q){
                 }
             );
         },
-        deleteProduct: function(product_name){
-            return $http.delete(baseUrl + '/product/' + product_name)
+        deleteOrderProduct: function(product_name){
+            return $http.delete(baseUrl + '/product_order/' + product_name)
             .then(
                 function(response){
                     return response.data;
@@ -76,8 +89,8 @@ App.factory('OrderService',['$http', '$q', function($http,$q){
                 }
             );
         },
-        updateOrderSpot: function(order_spot,id_order_spot){
-            return $http.put(baseUrl +'/order_spot/' + id_order_spot, order_spot)
+        updateOrderSpot: function(order_spot,hashCode){
+            return $http.put(baseUrl +'/order_spot/' + hashCode, order_spot)
                 .then(
                 function(response){
                     return response.data;
@@ -88,8 +101,8 @@ App.factory('OrderService',['$http', '$q', function($http,$q){
                 }
             );
         },
-        deleteOrderSpot: function(id_order_spot){
-            return $http.delete(baseUrl + 'order_spot' + id_order_spot)
+        deleteOrderSpot: function(address){
+            return $http.delete(baseUrl + '/order_spot/' + address)
                 .then(
                 function(response){
                     return response.data;
@@ -100,7 +113,32 @@ App.factory('OrderService',['$http', '$q', function($http,$q){
                 }
             );
         },
-        fetchAllOrders: function () {
+        deleteAllOrderSpots: function(){
+          return $http.delete(baseUrl + '/order_spot/delete_all')
+              .then(
+              function(response){
+                  return response.data;
+              },
+              function(errResponse){
+                  console.error('Error while deleting user');
+                  return $q.reject(errResponse);
+              }
+          );
+        },
+
+        createOrderRoute: function(order_route){
+            return $http.post(baseUrl + '/order_route/', order_route)
+                .then(
+                function(response){
+                    return response.data;
+                },
+                function(errResponse){
+                    console.error('Error while deleting user');
+                    return $q.reject(errResponse);
+                }
+            );
+        },
+        fetchAllOrders: function(){
             return $http.get(baseUrl + '/')
                 .then(
                 function(response){

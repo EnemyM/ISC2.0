@@ -40,7 +40,7 @@ public class HistoryPageController {
         List<order> orders = new ArrayList<order>();
 
         for (int i = 0; i < 24;i++){
-            orders.add(new order(i,"2016-2-2","8:00","2016-2-1",13000.0,"Volvo FH16 540"));
+            orders.add(new order(i,"2016-2-2","8:00","2016-2-1","13000.0"));
         }
         return orders;
     }

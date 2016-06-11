@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -26,7 +25,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public order findByDateOrder(Date date_order) {
+    public order findByDateOrder(String date_order) {
         return orderDAO.findByDate(date_order);
     }
 
@@ -51,7 +50,7 @@ public class OrderServiceImpl implements OrderService{
             entity.setOrder_spots(order.getOrder_spots());
             entity.setPrice_order(order.getPrice_order());
             entity.setTime_delivery(order.getTime_delivery());
-            entity.setProducts_order(order.getProducts_order());
+
         }
     }
 

@@ -22,7 +22,7 @@ public class order_status {
     @Column(name = "order_status")
     private String order_status;
 
-    @OneToMany(mappedBy = "order_status", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order_status", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<order> orders = new HashSet<order>();
 
     public Integer getId_order_status() {
@@ -48,6 +48,14 @@ public class order_status {
     public void setOrders(Set<order> orders) {
         this.orders = orders;
     }
+
+    public void addOrder(order newOrder){
+        newOrder.setOrder_status(this);
+        getOrders().add(newOrder);
+    }
+     public void removeOrder(order order){
+         getOrders().remove(order);
+     }
 
     @Override
     public String toString() {

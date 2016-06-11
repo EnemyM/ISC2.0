@@ -21,7 +21,7 @@ public class phone_type {
     private String type_phone;
 
     @OneToMany(mappedBy = "phone_type",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<user_phones> phones = new HashSet<user_phones>();
+    private Set<user_phone> phones = new HashSet<user_phone>();
 
     public Integer getId_phone_type() {
         return id_phone_type;
@@ -39,11 +39,11 @@ public class phone_type {
         this.type_phone = type_phone;
     }
 
-    public Set<user_phones> getPhones() {
+    public Set<user_phone> getPhones() {
         return phones;
     }
 
-    public void setPhones(Set<user_phones> phones) {
+    public void setPhones(Set<user_phone> phones) {
         this.phones = phones;
     }
 

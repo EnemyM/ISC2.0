@@ -2,7 +2,6 @@ package com.springapp.mvc.services.order;
 
 import com.springapp.mvc.model.order.order;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
 public interface OrderService {
 
     order findById(int id_order);
-    order findByDateOrder(Date date_order);
+    order findByDateOrder(String date_order);
     List<order> findAllOrders();
 
     void saveOrder(order order);

@@ -49,7 +49,7 @@ public class user {
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<user_phones> user_phones = new HashSet<user_phones>();
+    private Set<user_phone> user_phones = new HashSet<user_phone>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<order> orders = new HashSet<order>();
@@ -113,11 +113,11 @@ public class user {
         this.user_password = user_password;
     }
 
-    public Set<user_phones> getUser_phones() {
+    public Set<user_phone> getUser_phones() {
         return user_phones;
     }
 
-    public void setUser_phones(Set<user_phones> clients_phones) {
+    public void setUser_phones(Set<user_phone> clients_phones) {
         this.user_phones = clients_phones;
     }
 
@@ -146,11 +146,11 @@ public class user {
         this.user_role = user_role;
     }
 
-    public void addPhone(user_phones phone){
+    public void addPhone(user_phone phone){
         phone.setUser(this);
         getUser_phones().add(phone);
     }
-    public void removePhone(com.springapp.mvc.model.user.user_phones phone){
+    public void removePhone(user_phone phone){
         getUser_phones().remove(phone);
     }
     public void addOrder(order order){
@@ -180,7 +180,7 @@ public class user {
                 ", user_password='" + user_password + '\'' +
                 ", address_user='" + address_user + '\'' +
                 ", enabled=" + enabled +
-                ", user_phones=" + user_phones +
+                ", user_phone=" + user_phones +
                 ", orders=" + orders +
                 ", user_role=" + user_role +
                 '}';

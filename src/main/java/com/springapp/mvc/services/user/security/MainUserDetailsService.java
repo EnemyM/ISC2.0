@@ -1,6 +1,7 @@
 package com.springapp.mvc.services.user.security;
 
 import com.springapp.mvc.dao.user.UserDAO;
+import com.springapp.mvc.dao.user.role.UserRoleDAO;
 import com.springapp.mvc.model.user.user;
 import com.springapp.mvc.model.user.user_role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class MainUserDetailsService implements UserDetailsService{
     @Autowired
     private UserDAO dao;
 
+    @Autowired
+    private UserRoleDAO roleDao;
+
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String userEmail)
@@ -34,6 +38,7 @@ public class MainUserDetailsService implements UserDetailsService{
         user user = dao.findByEmail(userEmail);
 
         List<GrantedAuthority> authorities = buildUserAuthority(user.getUser_role());
+
         return buildUserForAuthentication(user,authorities);
     }
 

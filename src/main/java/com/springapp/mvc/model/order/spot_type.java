@@ -46,6 +46,15 @@ public class spot_type {
         this.type = type;
     }
 
+    public void addOrderSpot(order_spot spot){
+        spot.setSpot_type(this);
+        getOrder_spots().add(spot);
+    }
+
+    public void removeOrderSpot(order_spot spot){
+        getOrder_spots().remove(spot);
+    }
+
     @Override
     public String toString() {
         return "spot_type{" +

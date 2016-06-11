@@ -1,6 +1,6 @@
 package com.springapp.mvc.model.order.products_order;
 
-import com.springapp.mvc.model.order.order;
+import com.springapp.mvc.model.order.order_spot;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -25,12 +25,12 @@ public class product_order {
     @Column(name = "price_amount")
     private Double price_amount;
 
-    @Column(name = "product_name")
+
     private String product_name;
 
     @ManyToOne
-    @JoinColumn(name = "id_order")
-    private order order;
+    @JoinColumn(name = "id_order_spot")
+    private order_spot order_spot;
 
     @ManyToOne
     @JoinColumn(name = "id_product")
@@ -52,12 +52,12 @@ public class product_order {
         this.amount_product = amount_product;
     }
 
-    public order getOrder() {
-        return order;
+    public order_spot getOrder_spot() {
+        return order_spot;
     }
 
-    public void setOrder(order orders) {
-        this.order = orders;
+    public void setOrder_spot(order_spot order_spots) {
+        this.order_spot = order_spots;
     }
 
     public product getProduct() {
@@ -91,7 +91,7 @@ public class product_order {
                 ", amount_product='" + amount_product + '\'' +
                 ", price_amount='" + price_amount + '\'' +
                 ", product_name='" + product_name + '\'' +
-                ", order=" + order +
+                ", order_spot=" + order_spot +
                 ", product=" + product +
                 '}';
     }
@@ -109,7 +109,7 @@ public class product_order {
             return false;
         if (price_amount != null ? !price_amount.equals(that.price_amount) : that.price_amount != null) return false;
         if (product_name != null ? !product_name.equals(that.product_name) : that.product_name != null) return false;
-        if (order != null ? !order.equals(that.order) : that.order != null) return false;
+        if (order_spot != null ? !order_spot.equals(that.order_spot) : that.order_spot != null) return false;
         return !(product != null ? !product.equals(that.product) : that.product != null);
 
     }
@@ -120,7 +120,7 @@ public class product_order {
         result = 31 * result + (amount_product != null ? amount_product.hashCode() : 0);
         result = 31 * result + (price_amount != null ? price_amount.hashCode() : 0);
         result = 31 * result + (product_name != null ? product_name.hashCode() : 0);
-        result = 31 * result + (order != null ? order.hashCode() : 0);
+        result = 31 * result + (order_spot != null ? order_spot.hashCode() : 0);
         result = 31 * result + (product != null ? product.hashCode() : 0);
         return result;
     }

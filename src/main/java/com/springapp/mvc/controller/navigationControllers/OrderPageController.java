@@ -9,10 +9,8 @@ import com.springapp.mvc.services.order.TransportService;
 import com.springapp.mvc.services.order.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,20 +35,6 @@ public class OrderPageController {
     @RequestMapping(value = {"/home","/order","/"})
     public String getOrderPage(){
 
-        return "OrderPage";
-    }
-
-    @RequestMapping(value = {"/"}, method = RequestMethod.POST)
-    public String addOrder(@ModelAttribute("product_order") product_order product_order,Model product){
-
-        System.out.println("Inside in the order controller");
-        System.out.println(product_order.getAmount_product());
-        products.add(product_order);
-        product.addAttribute("products", products);
-
-        com.springapp.mvc.model.order.products_order.product_order newProduct = new product_order();
-
-        product.addAttribute("product_order", newProduct);
         return "OrderPage";
     }
 

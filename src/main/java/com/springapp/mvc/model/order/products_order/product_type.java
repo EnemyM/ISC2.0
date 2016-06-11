@@ -50,8 +50,20 @@ public class product_type {
         this.products = products;
     }
 
+    public void addProduct(product product){
+        product.setProduct_type(this);
+        getProducts().add(product);
+    }
 
-    public String toString(){
-        return "id product type: " + ", type product: " + product_type;
+    public void removeProduct(product product){
+        getProducts().remove(product);
+    }
+    @Override
+    public String toString() {
+        return "product_type{" +
+                "id_product_type=" + id_product_type +
+                ", product_type='" + product_type + '\'' +
+                ", products=" + products +
+                '}';
     }
 }

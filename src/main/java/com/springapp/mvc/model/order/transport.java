@@ -69,6 +69,14 @@ public class transport {
         this.orders = orders;
     }
 
+    public void addOrder(order order){
+        order.setTransport(this);
+        getOrders().add(order);
+    }
+    public void removeOrder(order order){
+        getOrders().remove(order);
+    }
+
     @Override
     public String toString() {
         return "transport{" +

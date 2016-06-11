@@ -8,8 +8,8 @@ import javax.persistence.*;
  * Created by Anton on 24.01.2016.
  */
 @Entity
-@Table(name = "user_phones")
-public class user_phones {
+@Table(name = "user_phone")
+public class user_phone {
     @Id
     @Column(name = "id_phone")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,7 +61,7 @@ public class user_phones {
 
     @Override
     public String toString() {
-        return "user_phones{" +
+        return "user_phone{" +
                 "id_phone=" + id_phone +
                 ", phone_number='" + phone_number + '\'' +
                 ", user=" + user +

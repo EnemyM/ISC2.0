@@ -15,43 +15,15 @@
 </script>
 <style>
     @import url(https://fonts.googleapis.com/css?family=roboto);
-    .leaf{
-        float: left;
-    }
-    .leafbtn{
-        display: block;
-        width: 70px;
-        height: 75px;
-        position: relative;
-        font-size: 30px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        line-height: 1;
-        color: #6f7890;
-        text-align: center;
-        border-bottom: 0;
-        background-color: #0f1013;
-    }
+
     .logo{
-        padding: 20px;
-        left: 50px;
+        left: 60px;
         position: relative;
         height: 75px;
         float: left;
         color: #ffffff;
     }
-    .leafbtn:hover{
-        color: #6db33f;
-        text-decoration: none;
-    }
 
-    .glyphicon-leaf:hover{
-        -moz-transform: rotate(15deg); /* Для Firefox */
-        -ms-transform: rotate(15deg); /* Для IE */
-        -webkit-transform: rotate(15deg); /* Для Safari, Chrome, iOS */
-        -o-transform: rotate(15deg); /* Для Opera */
-        transform: rotate(15deg);
-    }
 
     .nav {
         position: relative;
@@ -83,8 +55,8 @@
     .icon-bar {
         display: block;
         margin: 6px 0;
-        width: 30px;
-        height: 5px;
+        width: 28px;
+        height: 4px;
         background-color: #FFFFFF;
     }
 
@@ -311,24 +283,41 @@
     }
     .logo{
         font-size: 30px;
+        top: 15px;
+    }
+
+
+    .logout{
+        font-size: 25px;
+        display: block;
+        margin-right: 30px;
+        width: 30px;
+        float: right;
+        margin-top: 20px;
+    }
+    .logout a{
+
+        color: #cfd2da;
+    }
+    .logout a:hover{
+        color: #FCA311;
+
     }
 </style>
 
 <div class="header navbar-fixed-top" id="header">
-    <%--<div class="leaf" id="leaf">
-        <a class="leafbtn" id="menu-toggle">
-            <span class="glyphicon glyphicon-leaf" id="glyphicon-leaf"></span>
-        </a>
-    </div>--%>
         <div class="nav">
-            <button class="btn-nav">
+            <button class="btn-nav" title="Menu">
                 <span class="icon-bar top"></span>
                 <span class="icon-bar middle"></span>
                 <span class="icon-bar bottom"></span>
             </button>
         </div>
-    <div class="logo">ISC the best Information System of control</div>
+    <div class="logo">ISC <small>the best Information System of control</small></div>
 
+    <div class="logout" align="right">
+        <span class="floatRight" title="Logout"><a title="Logout" href="<c:url value="/logout" />"><span class="glyphicon glyphicon-log-out"></span></a></span>
+    </div>
 </div>
 <script>
     $(window).load(function() {

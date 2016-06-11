@@ -1,21 +1,26 @@
 package com.springapp.mvc.controller.contentControllers.order;
 
-import com.springapp.mvc.model.order.order;
-import com.springapp.mvc.model.order.order_spot;
+import com.springapp.mvc.model.order.*;
 import com.springapp.mvc.model.order.products_order.product;
 import com.springapp.mvc.model.order.products_order.product_order;
+import com.springapp.mvc.model.user.user;
 import com.springapp.mvc.services.order.OrderService;
 import com.springapp.mvc.services.order.OrderSpotService;
+import com.springapp.mvc.services.order.OrderStatusService;
+import com.springapp.mvc.services.order.TransportService;
 import com.springapp.mvc.services.order.product.ProductService;
+import com.springapp.mvc.services.order.product.ProductTypeService;
 import com.springapp.mvc.services.order.product.ProductsOrderService;
+import com.springapp.mvc.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by Anton Mostipan on 23.03.2016.
@@ -36,14 +41,35 @@ public class RestOrder {
     @Autowired
     OrderSpotService orderSpotService;
 
+    @Autowired
+    OrderStatusService orderStatusService;
+
+    @Autowired
+    TransportService transportService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ProductTypeService productTypeService;
+
     /* order products */
     private static Set<product_order> listProductsOrder = new HashSet<product_order>();
 
     /* order spots */
     private static Set<order_spot> listOrderSpots = new HashSet<order_spot>();
 
+    /* orders */
+    private static Set<order> orders = new HashSet<>();
+
+    /*create product */
+    @RequestMapping(value = {"/order/product/"}, method = RequestMethod.POST)
+    public ResponseEntity<Void> addProduct(@RequestBody product newProduct){
+        productService.save(newProduct);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
     /* Retrieve all products  */
-    @RequestMapping(value = {"/order/product/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/order/product_order/"}, method = RequestMethod.GET)
     public ResponseEntity<Set<product_order>> listProduct(){
         if(listProductsOrder.isEmpty()){
             System.out.println("List is empty");
@@ -54,7 +80,7 @@ public class RestOrder {
     }
 
     /* Retrieve single product */
-    @RequestMapping(value = {"/order/product/{id_product_order}"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = {"/order/product_order/{id_product_order}"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<product_order> getProduct(@PathVariable("id_product_order") Integer id){
         System.out.println("Fetching product with id " + id);
         product_order product = productsOrderService.findById(id);
@@ -67,14 +93,57 @@ public class RestOrder {
     }
 
     /* Add product order into the order list */
-    @RequestMapping(value = {"/order/product/"},method = RequestMethod.POST)
-    public ResponseEntity<Void> addProduct(@RequestBody product_order productOrder){
+    @RequestMapping(value = {"/order/product_order/"},method = RequestMethod.POST)
+    public ResponseEntity<Void> addOrderProduct(@RequestBody product_order productOrder){
         System.out.println("Product order has been added ");
         /* get product by name*/
         product entity = productService.findProductByName(productOrder.getProduct_name());
         productOrder.setPrice_amount(Double.valueOf(productOrder.getAmount_product()) *
-                entity.getProduct_cost());
+                Double.valueOf(entity.getProduct_cost()));
+
         listProductsOrder.add(productOrder);
+
+        try {
+            order newOrder = new order();
+            newOrder.setTime_delivery("8-00");
+            newOrder.setDate_delivery("2016-02-10");
+
+            newOrder.setDate_order("2016-02-10");
+            newOrder.setPrice_order("222222");
+
+            order_status status = orderStatusService.findTypeByName("Created");
+            newOrder.setOrder_status(status);
+
+            transport transport = transportService.findTransportByName("Mercedes-Benz C12");
+            newOrder.setTransport(transport);
+
+            user currentUser = userService.findByEmail("fishing94@mail.ru");
+            newOrder.setUser(currentUser);
+
+            orderService.saveOrder(newOrder);
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+
+        /*try{
+            System.out.println("Inside of product creation ");
+            product newproduct = new product();
+            newproduct.setProduct_amount("10000");
+            newproduct.setProduct_cost("32$");
+            newproduct.setProduct_name("salami");
+            newproduct.setProduct_date_storage("34days");
+
+            product_type type = productTypeService.findTYpeByName("dairy");
+            newproduct.setProduct_type(type);
+
+            System.out.println(newproduct.toString());
+            productService.save(newproduct);
+        }catch (Exception e){
+            System.out.println(e);
+        }*/
+
         /*String newAmount  = String.valueOf(Integer.valueOf(entity.getProduct_amount())
                         - Integer.valueOf(productOrder.getAmount_product()));
 
@@ -85,7 +154,7 @@ public class RestOrder {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = {"/order/product/{product_name}"}, method = RequestMethod.PUT)
+    @RequestMapping(value = {"/order/product_order/{product_name}"}, method = RequestMethod.PUT)
     public ResponseEntity<product_order> updateProduct(@PathVariable("product_name") String name, @RequestBody product_order product){
         System.out.println("Updating product order with name " + name);
         for(Iterator<product_order> iterator = listProductsOrder.iterator();iterator.hasNext();){
@@ -94,7 +163,7 @@ public class RestOrder {
                 try {
                     product entity = productService.findProductByName(itProd.getProduct_name());
                     product.setPrice_amount(Double.valueOf(product.getAmount_product()) *
-                            entity.getProduct_cost());
+                            Double.valueOf(entity.getProduct_cost()));
                     /*replace this product with updated*/
                     listProductsOrder.remove(itProd);
                     listProductsOrder.add(product);
@@ -108,7 +177,7 @@ public class RestOrder {
         return new ResponseEntity<product_order>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = {"/order/product/{product_name}"}, method = RequestMethod.DELETE)
+    @RequestMapping(value = {"/order/product_order/{product_name}"}, method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteProduct(@PathVariable("product_name") String product_name){
         System.out.println("Inside of the delete method ");
         for(Iterator<product_order> iterator = listProductsOrder.iterator();iterator.hasNext();){
@@ -122,7 +191,7 @@ public class RestOrder {
     }
 
     /* Retrieve all order spots  */
-    @RequestMapping(value = {"order/order_spot/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/order/order_spot/"}, method = RequestMethod.GET)
     public ResponseEntity<Set<order_spot>> getOrderSpots(){
 
         if (listOrderSpots.isEmpty()){
@@ -133,11 +202,13 @@ public class RestOrder {
     }
 
     /* Create order spot and add it into set of route spots */
-    @RequestMapping(value = {"order/order_spot/"}, method = RequestMethod.POST)
-    public ResponseEntity<Void> addOrderSpot(@Valid @RequestBody order_spot spot){
+    @RequestMapping(value = {"/order/order_spot/"}, method = RequestMethod.POST)
+    public ResponseEntity<Void> addOrderSpot(@RequestBody order_spot spot){
         System.out.println("Creating order spot " + spot.toString());
 
         try{
+            spot.setHashCode(spot.hashCode());
+            System.out.println("with hash code "+ spot.getHashCode());
             listOrderSpots.add(spot);
         }catch (Exception e){
             System.out.println(e);
@@ -145,25 +216,101 @@ public class RestOrder {
         System.out.println("Order spot has been created");
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
+    /* update order spot*/
+    @RequestMapping(value = {"/order/order_spot/{hashCode}"}, method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateOrderSpot(@PathVariable("hashCode") Integer hashCode, @RequestBody order_spot updatingSpot){
+        System.out.println("Updating order spot with hash code " + hashCode);
+
+        for(Iterator<order_spot> itr = listOrderSpots.iterator(); itr.hasNext(); ){
+            order_spot currSpot = itr.next();
+            if(currSpot.getHashCode().equals(hashCode)){
+                /* replace order spot */
+                listOrderSpots.remove(currSpot);
+                listOrderSpots.add(updatingSpot);
+            }
+        }
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    /* delete order spot */
+    @RequestMapping(value = {"/order/order_spot/{address}"}, method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteOrderSpot(@PathVariable("address") String address){
+        System.out.println("Delete order spot with  address " + address);
+        for(Iterator<order_spot> itr = listOrderSpots.iterator(); itr.hasNext();){
+            order_spot currSpot = itr.next();
+            if(currSpot.getAddress().equals(address)){
+                listOrderSpots.remove(currSpot);
+            }
+        }
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
+    /* delete all orde spots*/
+    @RequestMapping(value = {"/order/order_spot/delete_all"}, method = RequestMethod.DELETE)
+    public  ResponseEntity<Void> deleteAllOrderSpot(){
+
+        System.out.println("Delete all order spots");
+        for(Iterator<order_spot> itr = listOrderSpots.iterator(); itr.hasNext();){
+            listOrderSpots.remove(itr.next());
+        }
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = {"/order/order_route/"}, method = RequestMethod.POST)
+    public ResponseEntity<Void> addOrderRoute(@RequestBody order_route route){
+
+        System.out.println("Creating order route");
+
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
 
     /* Fetch all orders*/
     @RequestMapping(value = {"/order/"}, method = RequestMethod.GET)
-    public ResponseEntity<List<order>> setOrders(){
+    public ResponseEntity<Set<order>> setOrders(){
 
-        List<order> listOrders = orderService.findAllOrders();
-
-        if(listOrders.isEmpty()){
-            return new ResponseEntity<List<order>>(HttpStatus.NO_CONTENT);
+        if(orders.isEmpty()){
+            System.out.println("Order list is empty");
+            return new ResponseEntity<Set<order>>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<order>>(listOrders,HttpStatus.OK);
+        System.out.println("Sent order list");
+        return new ResponseEntity<Set<order>>(orders,HttpStatus.OK);
     }
 
     /* Create new order */
     @RequestMapping(value = {"/order/"}, method = RequestMethod.POST)
     public ResponseEntity<Void> addOrder(@RequestBody order sentOrder){
         System.out.println(sentOrder.toString());
+
+
+        order newOrder = sentOrder;
+        newOrder.setUser(userService.findById(1));
+        newOrder.setOrder_status(orderStatusService.findTypeByName("Created"));
+        newOrder.setTransport(transportService.findTransportByName(sentOrder.getName_transport()));
+        newOrder.setPrice_order("1000");
+        newOrder.setDate_order("22-10-16");
+        newOrder.setOrder_spots(listOrderSpots);
+
+
+        orders.add(newOrder);
+
         System.out.println("Order has been created");
-        listProductsOrder = new HashSet<>();
+
+        /*clear the sets of the product order and order spots*/
+        listProductsOrder = new HashSet<product_order>();
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    /* save all orders into the date base */
+    @RequestMapping(value = {"/order/save_all_orders"}, method = RequestMethod.POST)
+    public ResponseEntity<Void> saveOrders(){
+        for (Iterator<order> itr = orders.iterator();itr.hasNext();){
+                order current = itr.next();
+            orderService.saveOrder(current);
+        }
+
+        /*clean orders */
+        orders = new HashSet<>();
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }

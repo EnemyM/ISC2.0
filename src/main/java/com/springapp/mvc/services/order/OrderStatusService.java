@@ -10,7 +10,8 @@ import java.util.List;
 public interface OrderStatusService {
 
     order_status findStatusById(int id_status);
-    order_status findTypeByName(String type);
+    order_status findTypeByName(String status);
+
     List<order_status> findAllTypes();
 
     void save(order_status order_status);

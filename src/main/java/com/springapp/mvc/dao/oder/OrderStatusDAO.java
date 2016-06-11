@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface OrderStatusDAO {
 
+    order_status findByName(String status);
     order_status findById(int id_status);
     List<order_status> findAllStatuses();
 
