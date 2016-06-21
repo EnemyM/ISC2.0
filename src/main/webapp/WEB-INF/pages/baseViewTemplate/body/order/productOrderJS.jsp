@@ -16,8 +16,57 @@
   <link rel="stylesheet" href="<c:url value="/static/css/order/orderPageStyle.css"/> "/>
   <link rel="stylesheet" href="<c:url value="/static/css/animate/animated.css"/> "/>
   <script src="<c:url value="/static/js/content/menu.js"/>" ></script>
+  <style>
+    #wrap{
+      display: none;
+      opacity: 0.8;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding: 16px;
+      background-color: rgba(1, 1, 1, 0.725);
+      z-index: 100;
+      overflow: auto;
+    }
+
+    #window{
+      width: 400px;
+      height: 300px;
+      margin: 50px auto;
+      display: none;
+      background: #fff;
+      z-index: 200;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding: 16px;
+    }
+
+    #window{
+      margin-top: 80px;
+    }
+    .close{
+      margin-left: 364px;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body ng-app="myApp">
+<script type="text/javascript">
+
+  //Функция показа
+  function show(state){
+
+    document.getElementById('window').style.display = state;
+    document.getElementById('wrap').style.display = state;
+  }
+
+</script>
 <div class="container-fluid" ng-controller="OrderController as ctr" id="wrapper" style="padding-left: 0px;padding-right: 0px;color:#1ca8dd;">
   <div class="row">
     <div class="hr-divider animated">
@@ -46,12 +95,12 @@
           <%--latitude spot--%>
           <div class="spot-latitude mar-top-10">
             <div class="l-spot-lat"><label>Latitude</label></div>
-            <input id="spot-lat-in" ng-model="ctr.order_spot.latitude" type="number" required="true" class="form-control input-sm"  placeholder="Latitude spot">
+            <input id="spot-lat-in" ng-model="ctr.order_spot.latitude" type="text" required="true" class="form-control input-sm"  placeholder="Latitude spot">
           </div>
           <%--longitude spot--%>
           <div class="spot-longitude mar-top-10" align="right">
             <div class="l-spot-lon" align="left"><label>Longitude</label></div>
-            <input id="spot-lng-in" ng-model="ctr.order_spot.longitude" type="number" required="true" class="form-control input-sm"  placeholder="Longitude spot">
+            <input id="spot-lng-in" ng-model="ctr.order_spot.longitude" type="text" required="true" class="form-control input-sm"  placeholder="Longitude spot">
           </div>
           <%-- spot type --%>
           <div class="spot-type mar-top-10" align="center">
@@ -108,7 +157,7 @@
             <div>
               <input type="hidden" ng-model="ctr.product_order.id_product_order">
               <div class="select-product mar-top-10" align="center">
-                <div class="l-product" align="left"><label>Add Product</label></div>
+                <div class="l-product" align="left"><label>Add New</label></div>
                 <div class="">
                   <select ng-model="ctr.product_order.product_name" required="true" class="form-control select-w-300">
                     <option value="">Choose the product</option>
@@ -124,7 +173,7 @@
               <div class="amountProduct" align="center">
                 <div class="amount-product-in mar-top-10">
                   <div class="l-amount-product" align="left"><label>Amount product</label></div>
-                  <input type="number" ng-model="ctr.product_order.amount_product" placeholder="Amount" required="true" size="5px"
+                  <input type="text" ng-model="ctr.product_order.amount_product" placeholder="Amount" required="true" size="5px"
                          class="form-control input-sm select-w-300" ng-maxlength="10" id="product_order">
                   <div class="has-error" ng-show="productForm.$dirty">
                     <span ng-show="productForm.product_order.$error.type">Only numbers</span>
@@ -175,19 +224,24 @@
       <div class="mar-top-10"><span><center>Route</center></span></div>
       <form ng-submit="ctr.addRoute()" name="orderRoute" >
         <div class="button-route mar-top-10" align="center">
-          <input id="build-route-butt" type="button"  value="Build route" class="btn btn-sm btn-primary-outline btn-35-per">
-          <input id="save-route-butt" type="button" ng-click="ctr.saveRoute()" value="Save route" class="btn btn-sm btn-primary-outline btn-35-per">
-        </div>
+          <input id="build-route-butt" type="button"  value="Build route" class="btn btn-sm btn-primary-outline btn-32-per">
+          <input id="save-route-butt" type="button" ng-click="ctr.saveRoute()" value="Save route" class="btn btn-sm btn-primary-outline btn-32-per">
+          <input id="delete-route-butt" type="button" ng-click="ctr.deleteRoute()" value="Delete" class="btn btn-sm btn-primary-outline btn-32-per" style="float:right;">
+        </div><br>
         <div id="right-panel" class="mar-top-10"></div>
       </form>
     </div>
-
     <%-- order --%>
-    <div class="order-content col-lg-4">
+    <div class="order-content col-lg-4" style="overflow-y: auto;">
       <div class="mar-top-10"><span><center>Order</center></span></div>
-      <div>
+      <div class="order" >
       <form  ng-submit="ctr.create()" name="orderForm">
         <input type="hidden" ng-model="ctr.order.id_order">
+        <%-- address spot--%>
+        <div class="contact-phone" align="center">
+          <div class="l-contact-phone" align="left"><label>Contact Phone</label></div>
+          <input type="number" ng-model="ctr.order.contact_phone" id="contact-phone-in" placeholder="+380" class="form-control input-sm select-w-300" value="+380">
+        </div>
         <div class="date-delivery mar-top-10" align="center">
           <div class="l-date-delivery" align="left"><label>Date delivery</label></div>
           <input type="date" required="true" ng-model="ctr.order.date_delivery" class="btn-primary-outline btn-date-delivery">
@@ -206,12 +260,34 @@
           </select>
         </div>
         <div class="create-order-btn mar-top-10 btn-35-per" align="left">
-          <button type="submit" ng-click="ctr.create()" ng-disabled="orderForm.$invalid" class="btn btn-sm btn-primary-outline btn-100-per">Create Order</button>
+          <button type="submit" id="create-order-b" ng-click="ctr.create()" ng-disabled="orderForm.$invalid" class=" btn btn-sm btn-primary-outline btn-100-per">Create Order</button>
         </div>
         <div class="add-transport-btn mar-top-10 btn-35-per" align="left">
-          <button type="button" class="btn btn-sm btn-primary-outline add-transport-butt btn-100-per"><span class="glyphicon glyphicon-plus"></span> Transport</button>
+          <button type="button" onclick="show('block')" class="btn btn-sm btn-primary-outline add-transport-butt btn-100-per tr-btn"><span class="glyphicon glyphicon-plus"></span> Transport</button>
         </div>
       </form>
+        <!-- Задний прозрачный фон-->
+        <div onclick="show('none')" id="wrap"></div>
+        <!-- Само окно-->
+        <div id="window">
+          <span onclick="show('none')" class="close glyphicon glyphicon-remove"></span>
+          <form ng-submit="ctr.createTransport()" name="transportForm">
+            <div class="form-group">
+              <label>Name Transport</label>
+              <input type="text" ng-model="ctr.transport.name_transport" class="form-control" placeholder="Enter name of the transport">
+            </div>
+            <div class="form-group">
+              <label >Max tonnage</label>
+              <input type="text" ng-model="ctr.transport.max_tonnage" class="form-control" placeholder="Enter max tonnage">
+            </div>
+            <div class="form-group">
+              <label>Min tonnage</label>
+              <input type="text" ng-model="ctr.transport.min_tonnage" class="form-control" placeholder="Enter min tonname">
+            </div>
+            <button type="submit" onclick="show('none')" class="btn btn-primary">Cancel</button>
+            <button type="submit" ng-click="ctr.createTransport()" class="btn btn-primary">Create</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -228,32 +304,21 @@
       <table class="table table-condensed">
         <thead>
         <tr>
-          <th>#</th>
           <th>Creation date</th>
-          <th>Price Order</th>
           <th>Date delivery</th>
           <th>Time delivery</th>
           <th>Transport</th>
+          <th>Contact Phone</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="order in ctr.orders">
           <td><span ng-bind="order.date_order"></span></td>
-          <td><span ng-bind="order.price_order"></span></td>
           <td><span ng-bind="order.date_delivery"></span></td>
           <td><span ng-bind="order.time_delivery"></span></td>
           <td><span ng-bind="order.name_transport"></span></td>
+          <td><span ng-bind="order.contact_phone"></span></td>
         </tr>
-        <%--<c:forEach items="${orders}" var="order">
-          <tr>
-            <td><span>${order.id_order}</span></td>
-            <td><span>${order.date_order}</span></td>
-            <td><span>${order.price_order}</span></td>
-            <td><span>${order.date_delivery}</span></td>
-            <td><span>${order.time_delivery}</span></td>
-            <td><span>${order.name_transport}</span></td>
-          </tr>
-        </c:forEach>--%>
         </tbody>
       </table>
     </div>

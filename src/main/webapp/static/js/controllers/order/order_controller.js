@@ -9,9 +9,16 @@ App.controller('OrderController',['$scope','OrderService','$http',function($scop
     self.order_spot = {id_order_spot:null, address:'',latitude:'',longitude:'',name_spot_type:'',hashCode:null};
     self.order_spots =[];
     self.order_route = {id_order_route:null, start_route:'', end_route:''};
-    self.order = {id_order:null, date_order:'', date_delivery:'', time_delivery:'', price_order:'', name_transport:''};
+    self.order = {id_order:null, date_order:'', date_delivery:'', time_delivery:'', price_order:'', name_transport:'',contact_phone:''};
     self.orders = [];
 
+    self.transport = {id_transport:null, name_transport:'', max_tonnage:'', min_tonnage:''};
+
+    self.createTransport = function(){
+        $http.post('http://localhost:8080/order/trasnport',self.transport);
+
+        self.transport = {id_transport:null, name_transport:'', max_tonnage:'', min_tonnage:''};
+    };
     self.fetchAllOrderProducts = function(){
       OrderService.fetchAllOrderProducts()
           .then(
@@ -128,7 +135,6 @@ App.controller('OrderController',['$scope','OrderService','$http',function($scop
         OrderService.fetchAllOrders()
             .then(
             function(d){
-                alert("fetch all orders");
                 self.orders = d;
             },
             function(errResponse){
@@ -209,7 +215,17 @@ App.controller('OrderController',['$scope','OrderService','$http',function($scop
     /* create order with defined scope order*/
     self.create = function(){
         self.createOrder(self.order);
-        self.order = {id_order:null,transport:'',date_delivery:'',time_delivery:''};
+
+
+        var currentTime = new Date();
+        var month = currentTime.getMonth() + 1;
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+
+        self.order.date_order = month + "/" + day + "/" + year;
+
+        self.orders = [self.order];
+        self.order = {id_order:null, date_order:'', date_delivery:'', time_delivery:'', price_order:'', name_transport:'',contact_phone:''};
         self.order_spots = {};
         self.products_order = {};
     };

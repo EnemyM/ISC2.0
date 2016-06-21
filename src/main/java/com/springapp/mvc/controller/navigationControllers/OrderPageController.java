@@ -32,7 +32,7 @@ public class OrderPageController {
     @Autowired
     SpotTypeService spotTypeService;
 
-    @RequestMapping(value = {"/home","/order","/"})
+    @RequestMapping(value = {"/home","/order"})
     public String getOrderPage(){
 
         return "OrderPage";

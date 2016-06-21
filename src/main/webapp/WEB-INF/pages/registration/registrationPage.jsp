@@ -46,7 +46,7 @@
 
 </head>
 <body ng-app ="myApp" class="ng-cloak">
-<div class="generic-container" ng-controller="RegistrationController as ctrl">
+<div class="generic-container" ng-controller="RegistrationController as ctrl" align="center">
     <div class="panel panel-default">
         <div class="panel-heading"><span class="lead">Registration form </span></div>
         <div class="formcontainer">
@@ -119,6 +119,19 @@
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label class="col-md-3 control-lable" for="user_password"> Password </label>
+                        <div class="col-md-7">
+                            <input path="password" ng-model="ctrl.user.user_password" id="user_password" type="password" class="form-control input-sm" placeholder="More than 8 characters " required ng-minlength="8"/>
+                            <div class="has-error" ng-show="registerForm.$dirty">
+                                <span ng-show="registerForm.password.$error.required">This is a required field</span>
+                                <span ng-show="registerForm.password.$error.minlength">Minimum length required is 3</span>
+                                <span ng-show="registerForm.password.$invalid">This field is invalid </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-3 control-lable" for="user_password"> Confirm Password </label>
                         <div class="col-md-7">
                             <input path="password" ng-model="ctrl.user.user_password" id="user_password" type="password" class="form-control input-sm" placeholder="More than 8 characters " required ng-minlength="8"/>
                             <div class="has-error" ng-show="registerForm.$dirty">

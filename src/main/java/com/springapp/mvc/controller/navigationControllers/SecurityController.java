@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class SecurityController {
-    @RequestMapping(value = {"/login"})
+    @RequestMapping(value = {"/login","/"})
     public String getSecurity(){
         return "security";
     }

@@ -10,7 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <link href="<c:url value='/static/css/template/templateStyle.css' />" rel="stylesheet"/>
   <script src="<c:url value="/static/js/content/menu.js"/>" ></script>
-
+  <link rel="shortcut icon" href="<c:url value="/static/images/world_globe.ico"/>" type="image/x-icon">
   <style>
     body,html{
       font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;

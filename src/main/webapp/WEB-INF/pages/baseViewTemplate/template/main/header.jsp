@@ -15,6 +15,7 @@
 </script>
 <style>
     @import url(https://fonts.googleapis.com/css?family=roboto);
+    @import url('http://fonts.googleapis.com/css?family=Open+Sans');
 
     .logo{
         left: 60px;
@@ -22,6 +23,7 @@
         height: 75px;
         float: left;
         color: #ffffff;
+        font-family: 'Julius Sans One', sans-serif;
     }
 
 
@@ -303,6 +305,10 @@
         color: #FCA311;
 
     }
+    .header-text{
+        color:wheat;
+        font-size: 0.7em;
+    }
 </style>
 
 <div class="header navbar-fixed-top" id="header">
@@ -313,7 +319,7 @@
                 <span class="icon-bar bottom"></span>
             </button>
         </div>
-    <div class="logo">ISC <small>the best Information System of control</small></div>
+    <div class="logo">ISC <span class="header-text"> Information System of control</span></div>
 
     <div class="logout" align="right">
         <span class="floatRight" title="Logout"><a title="Logout" href="<c:url value="/logout" />"><span class="glyphicon glyphicon-log-out"></span></a></span>

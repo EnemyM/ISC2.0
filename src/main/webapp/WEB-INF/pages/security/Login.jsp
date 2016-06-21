@@ -6,7 +6,10 @@
   <title>Login</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
+  <link rel="shortcut icon" href="<c:url value="/static/images/world_globe.ico"/>" type="image/x-icon">
+  <link rel="stylesheet" href="<c:url value="/static/css/animate/animated.css"/> "/>
   <style>
+    @import url(http://fonts.googleapis.com/css?family=Julius+Sans+One);
     @import url('http://fonts.googleapis.com/css?family=Open+Sans');
     /*@font-face{
       src:url("fonts/pictos-regular-webfont.ttf") format("truetype"),
@@ -16,8 +19,16 @@
     }*/
 
     body{
-      background:#292931;
-      font-family:'Open Sans';
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: url(<c:url value="/static/images/bg.jpg"/>);
+      /*background:#292931;*/
+      font-family: 'Julius Sans One', sans-serif;
+      background-size: cover;
+      background-position: center 0px;
+      background-repeat: no-repeat;
     }
     label{
       font-family:icon;
@@ -27,11 +38,10 @@
     #block-security,#option{
       width:230px;
       height:113px;
-      margin:auto;
+      margin: 0 auto;
     }
     #block-security {
       background:#423143;
-      margin-top:100px;
     }
     #block-security:before{
       content:'';
@@ -124,7 +134,7 @@
       margin:auto;
     }
     #option p{
-      color:#6c5B6d;
+      color:white;
       font-size:24px;
       text-transform:uppercase;
       padding:0px 18px;
@@ -136,7 +146,7 @@
     }
     #option a{
       -webkit-font-smoothing: antialiased;
-      color:#6c5B6d;
+      color:white;
       /*text-shadow:0 -1px 0 #000;*/
       font-size:12px;
       display:block;
@@ -159,7 +169,6 @@
       color:#999;
       font-size:16px;
     }
-
 
     input::-webkit-validation-bubble-message {
       color:white;
@@ -209,19 +218,42 @@
       position:absolute;
       margin:-23px 178px;
     }
+
+    .header{
+      position: static;
+      font-family: 'Julius Sans One', sans-serif;
+      color:wheat;
+      font-size: 1.5em;
+      width: auto;
+      margin-top: 15%;
+      top: 25%;
+      text-align: center;
+    }
+    .security-form{
+      margin-top: 2%;
+    }
+    #block-security a{
+      text-decoration: none;
+      color: white;
+    }
   </style>
 </head>
-<body>
+<body class="">
+<div class="header">
+  <span>Information system monitoring of freights with a limited shelf life.</span>
+</div>
+<div class="security-form ">
 <form id="form" name="formLogin" method="POST">
   <div id="block-security">
     <label id="email_user" for="email_user">e</label>
     <input type="text" name="email_user" id="name" placeholder="Email" required="true"/>
     <label id="pass" for="user_password">k</label>
     <input type="password" name="user_password" id="user_password" placeholder="Password" required="true" />
-    <button type="submit" id="submit" name="submit" ng-disabled="formLogin.$invalid">Ok</button>
+    <button type="submit" id="submit" name="submit" ng-disabled="formLogin.$invalid"><a href="<c:url value="/order"/>">Ok</a></button>
   </div>
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
+</div>
 <div id="option">
   <p>Login</p>
   <a href="<c:url value='/registration/' />">Registration</a>

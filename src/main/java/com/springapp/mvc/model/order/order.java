@@ -40,6 +40,9 @@ public class order {
 
     private String name_transport;
 
+    @Column(name = "contact_phone")
+    private String contact_phone;
+
     @ManyToOne
     @JoinColumn(name = "id_user")
     private user user;
@@ -72,6 +75,14 @@ public class order {
         this.date_delivery = date_delivery;
         this.time_delivery = time_delivery;
         this.price_order = price_order;
+    }
+
+    public String getContact_phone() {
+        return contact_phone;
+    }
+
+    public void setContact_phone(String contact_phone) {
+        this.contact_phone = contact_phone;
     }
 
     public String getName_transport() {

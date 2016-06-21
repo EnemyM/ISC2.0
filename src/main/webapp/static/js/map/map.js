@@ -528,6 +528,7 @@ function initMap() {
             ]
         }
     });
+    map.setMapTypeId(google.maps.MapTypeId.HYBRID);
     /* set maps styles */
     map.mapTypes.set('usroadatlas', usRoadMapType);
     map.setMapTypeId('usroadatlas');
@@ -542,6 +543,8 @@ function initMap() {
     map.mapTypes.set('Victorian_blue', VictorianBlue);
     map.setMapTypeId('Victorian_blue');
 
+    /* direction array*/
+    var drArr = [];
 
     /* Instantiate a renderer for directions and bind it to the map. */
     var directionsDisplay = new google.maps.DirectionsRenderer({
@@ -549,6 +552,7 @@ function initMap() {
         map: map,
         panel: document.getElementById('right-panel')
     });
+
     // Instantiate a directions service.
     var directionsService = new google.maps.DirectionsService;
 
@@ -616,19 +620,29 @@ function initMap() {
            }
        }
     });
-
     /* when create-route is slicked */
     document.getElementById('save-route-butt').addEventListener('click', function () {
         if(markers.length === 0){
-            alert('Please, add order spot');
+            alert('Please, add the order spots');
+        }else{
+            alert("Route has saved");
         }
     });
-
+    document.getElementById('delete-route-butt').addEventListener('click', function () {
+       var route =  document.getElementById('right-panel').value = null;
+        directionsDisplay.setPanel(null);
+        directionsDisplay.setMap(null);
+    });
+    document.getElementById('create-order-b').addEventListener('click', function () {
+        var route =  document.getElementById('right-panel').value = null;
+        directionsDisplay.setPanel(null);
+        directionsDisplay.setMap(null);
+        deleteAllMarkers();
+    });
     // This event listener calls addMarker() when the map is clicked.
     google.maps.event.addListener(map, 'click', function(event) {
-        if(markers.length > 3){
-            window.alert("Oh my God!!!" +
-                "You have reached allowed count of spots");
+        if(markers.length > 1){
+            window.alert("You have reached allowed count of spots");
         }else {
             var address = document.getElementById('spot-address-in').value;
             if(address === ''){
@@ -636,10 +650,8 @@ function initMap() {
             }else{
                 alert('Save current spot or delete it to create new one');
             }
-
         }
     });
-
     /* add the spot type */
     document.getElementById('spot-type-s').addEventListener('change', function(){
         var address = document.getElementById('spot-address-in').value;
@@ -661,10 +673,7 @@ function initMap() {
             }
         }
     });
-
-   /* google.maps.event.addDomListener(window, 'load', initialize);*/
 }
-
 /* get location  */
 function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('search-spot-location-in').value;
@@ -688,6 +697,7 @@ function geocodeLatLng(location,geocoder, map, infowindow) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {
                 var marker = new google.maps.Marker({
+                    center:location,
                     position: location,//set position
                     map: map,
                     draggable: true,//makes marker to be draggable
@@ -703,7 +713,6 @@ function geocodeLatLng(location,geocoder, map, infowindow) {
                 var latitude = document.getElementById('spot-lat-in').value = results[0].geometry.location.lat();
                 var longitude = document.getElementById('spot-lng-in').value = results[0].geometry.location.lng();
 
-
                 /* add address into the info window */
                 infowindow.setContent(results[1].formatted_address);
                 /*open info window */
@@ -711,11 +720,6 @@ function geocodeLatLng(location,geocoder, map, infowindow) {
                 /* push marker into array */
                 markers.push(marker);
 
-                /*/!* when the delete button is clicked *!/
-                 document.getElementById('delete-spot-butt').addEventListener('click',function(){
-                 deleteMarker(marker);
-                 });*/
-                /* add listener to all added markers */
                 for (var i = 0; i < markers.length; i++) {
                     //Attach click event to the marker.
                     (function (marker) {
@@ -737,16 +741,7 @@ function geocodeLatLng(location,geocoder, map, infowindow) {
                             document.getElementById('delete-spot-butt').addEventListener('click',function(){
                                 deleteMarker(marker);
                             });
-                            /*/!* update marker *!/
-                             document.getElementById('save-spot-butt').addEventListener('click',function(){
-                             var spotType = document.getElementById('spot-type-s').value;
-                             if(spotType === 'Store'){
-                             data.set("type",storeLable);
-                             }else{
-                             data.set("type",destinationLable);
-                             }
 
-                             });*/
                         });
                         /* when the marker is dragged  */
                         google.maps.event.addListener(marker, 'dragend', function (event) {
@@ -778,7 +773,6 @@ function geocodeLatLng(location,geocoder, map, infowindow) {
                         });
 
                     })(marker);
-
                 }
             } else {
                 window.alert('No results found');
@@ -803,7 +797,6 @@ function deleteAllMarkers() {
     var longitude = document.getElementById('spot-lng-in').value = '';
 
 }
-
 /* delete marker by latitude and longitude*/
 function deleteMarker(marker){
     for(var i = 0; i < markers.length;i++){
@@ -818,7 +811,6 @@ function deleteMarker(marker){
         }
     }
 }
-
 /* animation when the marker is clicked */
 function toggleMarkerBounce(marker) {
     if (marker.getAnimation() !== null) {
@@ -827,19 +819,15 @@ function toggleMarkerBounce(marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
     }
 }
-
-
 /* calculate and display route */
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     var start;
     var end;
-    alert(markers.length);
+
     for(var i = 0; i < markers.length;i++){
         if(markers[i].get("type") === storeLable){
-            alert(markers[i].get("type"));
             start = markers[i].getPosition();
         }else{
-            alert(markers[i].get("type"));
             end = markers[i].getPosition();
         }
     }
@@ -850,6 +838,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     }, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+            drArr.push(directionsDisplay);
         } else {
             window.alert('Directions request failed due to ' + status);
         }

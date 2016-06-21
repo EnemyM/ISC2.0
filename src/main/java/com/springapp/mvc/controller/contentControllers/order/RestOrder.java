@@ -126,31 +126,6 @@ public class RestOrder {
             System.out.println(e);
         }
 
-
-        /*try{
-            System.out.println("Inside of product creation ");
-            product newproduct = new product();
-            newproduct.setProduct_amount("10000");
-            newproduct.setProduct_cost("32$");
-            newproduct.setProduct_name("salami");
-            newproduct.setProduct_date_storage("34days");
-
-            product_type type = productTypeService.findTYpeByName("dairy");
-            newproduct.setProduct_type(type);
-
-            System.out.println(newproduct.toString());
-            productService.save(newproduct);
-        }catch (Exception e){
-            System.out.println(e);
-        }*/
-
-        /*String newAmount  = String.valueOf(Integer.valueOf(entity.getProduct_amount())
-                        - Integer.valueOf(productOrder.getAmount_product()));
-
-        System.out.println("New amount product is " + newAmount);
-        entity.setProduct_amount(newAmount);*/
-        /*productService.updateProductAmount(entity);*/
-
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
@@ -294,9 +269,12 @@ public class RestOrder {
 
         orders.add(newOrder);
 
+
+
         System.out.println("Order has been created");
 
         /*clear the sets of the product order and order spots*/
+        listOrderSpots = new HashSet<>();
         listProductsOrder = new HashSet<product_order>();
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
@@ -313,4 +291,13 @@ public class RestOrder {
         orders = new HashSet<>();
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
+
+    /* create trasnport*/
+    @RequestMapping(value = {"/order/transport"}, method = RequestMethod.POST)
+    public ResponseEntity<Void> createTransport(@RequestBody transport tr){
+        System.out.println("Trasnport " + tr.getName_transport() + "Created");
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+
 }
